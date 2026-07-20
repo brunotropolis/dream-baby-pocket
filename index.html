@@ -5,6 +5,36 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Dream Baby Pocket — Descubra o sono do seu bebê</title>
 <meta name="description" content="Responda o quiz, descubra o perfil de sono do seu bebê e saia com um plano pra ele dormir bem, na soneca e à noite, em cerca de 30 minutos. Sem treino de choro.">
+<!-- Meta Pixel (mesmo do perfis: 2199334337151314 browser+CAPI, 2103631056813206 browser) -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '2199334337151314');
+fbq('init', '2103631056813206');
+(function(){
+  var CAPI='https://n8n-n8n.xktssy.easypanel.host/webhook/perfis-capi';
+  function gc(n){var m=document.cookie.match('(^|; )'+n+'=([^;]+)');return m?decodeURIComponent(m[2]):'';}
+  function eid(){return Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,10);}
+  var BOT=navigator.webdriver===true||/bot|crawl|spider|slurp|facebookexternalhit|facebookcatalog|whatsapp|telegram|preview|headless|lighthouse|pagespeed/i.test(navigator.userAgent||'');
+  window.trackMeta=function(ev,cd){
+    var id=eid();
+    try{ if(window.fbq) fbq('track',ev,cd||{},{eventID:id}); }catch(e){}
+    if(BOT) return;
+    try{
+      var p={event_name:ev,event_id:id,event_time:Math.floor(Date.now()/1000),event_source_url:location.href,fbp:gc('_fbp'),fbc:gc('_fbc'),user_agent:navigator.userAgent,custom_data:cd||{}};
+      var blob=new Blob([JSON.stringify(p)],{type:'text/plain'});
+      if(navigator.sendBeacon) navigator.sendBeacon(CAPI,blob);
+      else fetch(CAPI,{method:'POST',mode:'no-cors',keepalive:true,headers:{'Content-Type':'text/plain'},body:JSON.stringify(p)});
+    }catch(e){}
+  };
+  trackMeta('PageView');
+  trackMeta('ViewContent', {content_name:'dream-baby-pocket', content_category:'pocket-geral', value:67.0, currency:'BRL'});
+})();
+</script>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=2199334337151314&ev=PageView&noscript=1"/></noscript>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -472,6 +502,13 @@ document.querySelectorAll('.faq-q').forEach(function(btn){
     var item=btn.parentElement,resp=item.querySelector('.faq-a'),aberto=item.classList.contains('aberto');
     document.querySelectorAll('.faq-item.aberto').forEach(function(o){o.classList.remove('aberto');o.querySelector('.faq-a').style.maxHeight='0'});
     if(!aberto){item.classList.add('aberto');resp.style.maxHeight=resp.scrollHeight+'px'}
+  });
+});
+/* InitiateCheckout no clique dos botões de compra (browser + CAPI via trackMeta) */
+document.querySelectorAll('a.btn-comprar').forEach(function(a){
+  a.addEventListener('click',function(){
+    if(window.trackMeta) window.trackMeta('InitiateCheckout',{content_name:'dream-baby-pocket',value:67.0,currency:'BRL'});
+    else if(window.fbq) fbq('track','InitiateCheckout',{content_name:'dream-baby-pocket',value:67.0,currency:'BRL'});
   });
 });
 </script>
