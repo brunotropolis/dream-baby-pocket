@@ -4,366 +4,549 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Dream Baby Pocket — Descubra o sono do seu bebê</title>
-<meta name="description" content="Descubra o perfil de sono do seu bebê e saia com um plano pra ele dormir bem, na soneca e à noite, em cerca de 30 minutos.">
+<meta name="description" content="Responda o quiz, descubra o perfil de sono do seu bebê e saia com um plano pra ele dormir bem, na soneca e à noite, em cerca de 30 minutos. Sem treino de choro.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cardo:ital,wght@0,400;0,700;1,400&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --sage:#9DB9B2; --sage-deep:#7FA39C; --slate:#5C7A72; --slate-ink:#41564F;
-    --cream:#F7EBD8; --cream-soft:#FBF3E6; --blush:#F8E0D2;
-    --terra:#E08A5F; --terra-deep:#C56B41; --mustard:#E9B44C; --coral:#F0937B;
-    --ink:#3E4A45; --ink-soft:#6B7A73; --white:#FFFDF8;
-    --r:22px; --r-lg:32px; --maxw:1080px;
-  }
-  *{margin:0;padding:0;box-sizing:border-box}
-  html{scroll-behavior:smooth}
-  body{font-family:'Quicksand',sans-serif;color:var(--ink);background:var(--cream-soft);font-size:18px;line-height:1.7;font-weight:500;-webkit-font-smoothing:antialiased}
-  h1,h2,h3,.font-title{font-family:'Poppins',sans-serif;font-weight:700;line-height:1.15;letter-spacing:-.01em}
-  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
-  section{padding:80px 0}
-  .eyebrow{font-family:'Poppins',sans-serif;font-weight:600;font-size:13px;letter-spacing:.14em;text-transform:uppercase;opacity:.75;margin-bottom:16px}
-  p.lead{font-size:20px}
-  .btn{display:inline-flex;align-items:center;gap:10px;font-family:'Poppins',sans-serif;font-weight:600;font-size:18px;
-    background:var(--terra-deep);color:var(--white);padding:18px 38px;border-radius:999px;text-decoration:none;
-    box-shadow:0 10px 24px rgba(197,107,65,.28);transition:transform .15s ease, box-shadow .15s ease}
-  .btn:hover{transform:translateY(-2px);box-shadow:0 14px 30px rgba(197,107,65,.36)}
-  .btn.mustard{background:var(--mustard);color:#5c4410;box-shadow:0 10px 24px rgba(233,180,76,.32)}
-  .trust{display:flex;flex-wrap:wrap;gap:22px;font-family:'Poppins',sans-serif;font-weight:500;font-size:14px;opacity:.8;margin-top:22px}
-  .trust span{display:inline-flex;align-items:center;gap:7px}
+:root{
+  --roxo-900:#23103f; --roxo-800:#2f1452; --roxo-700:#3d1a5b;
+  --magenta:#c4147a; --pink:#ff4f9a; --pink-soft:#ff7ab5;
+  --laranja:#ff8a3d; --laranja-soft:#ffb37a;
+  --azul-700:#3478c4; --azul-500:#4a90d9; --azul-300:#6db3f2; --azul-100:#a8d3f7;
+  --verde:#34d399; --verde-whats:#25d366;
+  --branco:#fff; --creme:#fff7ef;
+  --texto-claro:#f5edff; --texto-suave:rgba(245,237,255,.82); --texto-escuro:#22184a;
+  --card-glass:rgba(255,255,255,.10); --card-borda:rgba(255,255,255,.18);
+  --grad-cta:linear-gradient(100deg,var(--pink) 0%,var(--laranja) 100%);
+  --sombra-cta:0 12px 32px rgba(255,79,154,.42);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Quicksand',sans-serif;font-weight:500;color:var(--texto-claro);background:var(--roxo-900);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+h1,h2,h3,.serif{font-family:'Cardo',serif;letter-spacing:.035em;line-height:1.18;font-weight:700}
+.hl-pink{color:var(--pink-soft)} .hl-laranja{color:var(--laranja-soft)} .hl-laranja-escuro{color:#e96f1f} .hl-verde{color:#7dffce}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px;position:relative;z-index:2}
+section{position:relative;overflow:hidden}
+.sec-dark{background:linear-gradient(160deg,var(--roxo-700) 0%,var(--roxo-800) 45%,var(--magenta) 130%)}
+.sec-dark-deep{background:linear-gradient(175deg,var(--roxo-900) 0%,var(--roxo-700) 60%,#7c1a64 140%)}
+.sec-sky{background:linear-gradient(170deg,var(--azul-700) 0%,var(--azul-500) 40%,var(--azul-300) 100%)}
+.pad{padding:96px 0}
+@media(max-width:760px){.pad{padding:64px 0}}
+.curve{display:block;width:100%;height:70px;margin-bottom:-1px;position:relative;z-index:3}
+@media(max-width:760px){.curve{height:36px}}
+.deco{position:absolute;z-index:1;pointer-events:none}
+.glow-spot{position:absolute;z-index:0;pointer-events:none;border-radius:50%;filter:blur(90px);opacity:.55}
+.twinkle{animation:twinkle 3.4s ease-in-out infinite}
+.twinkle.d1{animation-delay:.8s}.twinkle.d2{animation-delay:1.6s}.twinkle.d3{animation-delay:2.4s}
+@keyframes twinkle{0%,100%{opacity:.25}50%{opacity:.95}}
+.float-slow{animation:floaty 7s ease-in-out infinite}
+.float-slower{animation:floaty 10s ease-in-out infinite reverse}
+@keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+.tag{display:inline-block;font-size:13px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;padding:9px 20px;border-radius:100px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);backdrop-filter:blur(4px);margin-bottom:22px}
+.tag-laranja{background:rgba(255,138,61,.18);border-color:rgba(255,138,61,.45);color:#ffd9bb}
+h2{font-size:clamp(28px,4.2vw,42px);margin-bottom:18px}
+.sub{font-size:clamp(16px,2vw,19px);color:var(--texto-suave);line-height:1.65;max-width:680px}
+.center{text-align:center}.center .sub{margin:0 auto}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;font-family:'Quicksand',sans-serif;font-weight:700;font-size:17px;color:#fff;text-decoration:none;text-align:center;background:var(--grad-cta);padding:18px 42px;border-radius:100px;border:none;cursor:pointer;box-shadow:var(--sombra-cta);transition:transform .25s ease,box-shadow .25s ease}
+.btn:hover{transform:translateY(-3px);box-shadow:0 18px 40px rgba(255,79,154,.55)}
+.btn-lg{font-size:19px;padding:21px 52px}
+.btn-comprar{background:linear-gradient(100deg,#16a34a 0%,#34d399 100%);box-shadow:0 12px 32px rgba(34,197,94,.42);text-transform:uppercase;letter-spacing:.06em;font-weight:700;font-size:clamp(20px,3.4vw,26px);padding:24px 56px;animation:pulsarCompra 2.4s ease-in-out infinite}
+.btn-comprar:hover{box-shadow:0 18px 44px rgba(34,197,94,.6)}
+@keyframes pulsarCompra{0%,100%{transform:scale(1);box-shadow:0 12px 32px rgba(34,197,94,.42)}50%{transform:scale(1.04);box-shadow:0 16px 44px rgba(34,197,94,.7)}}
+.btn-whats{background:linear-gradient(100deg,#1faa52,#25d366);box-shadow:0 12px 32px rgba(37,211,102,.4)}
+@media(prefers-reduced-motion:reduce){.btn-comprar{animation:none}}
+.micro{font-size:13px;color:var(--texto-suave);margin-top:14px}
 
-  /* NAV */
-  nav{background:var(--cream);position:sticky;top:0;z-index:50}
-  .nav-in{max-width:var(--maxw);margin:0 auto;padding:16px 24px;display:flex;align-items:center;justify-content:space-between}
-  .logo{font-family:'Poppins',sans-serif;font-weight:700;font-size:22px;color:var(--terra-deep);letter-spacing:-.02em}
-  .logo small{color:var(--slate);font-weight:600}
-  .nav-cta{font-family:'Poppins',sans-serif;font-weight:600;font-size:15px;background:var(--slate);color:var(--white);padding:11px 24px;border-radius:999px;text-decoration:none}
+/* HERO — geral, centrado, cena noturna com os 5 bichos */
+.hero{padding:56px 0 96px;text-align:center}
+.hero .wrap{max-width:920px}
+.hero h1{font-size:clamp(34px,5.6vw,58px);margin:0 auto 12px;max-width:17ch}
+.hero .lead{font-family:'Cardo',serif;font-size:clamp(20px,2.7vw,27px);font-style:italic;color:var(--laranja-soft);margin:0 auto 22px;max-width:24ch;line-height:1.3}
+.hero p{color:var(--texto-suave);line-height:1.7;margin:0 auto 14px;font-size:17px;max-width:600px}
+.hero p strong{color:#fff}
+.hero .pill-30{display:inline-flex;align-items:center;gap:9px;background:rgba(255,138,61,.16);border:1px solid rgba(255,138,61,.45);color:#ffd9bb;font-weight:700;padding:9px 20px;border-radius:100px;font-size:15px;margin:6px 0 4px}
+.hero-cta{margin-top:30px}
+.hero-scene{position:relative;margin-top:60px;height:clamp(190px,27vw,300px)}
+.hero-scene .lua{position:absolute;top:-14px;left:50%;transform:translateX(-50%);width:clamp(92px,13vw,148px);opacity:.96;z-index:1}
+.hero-scene .glow-c{position:absolute;top:24%;left:50%;transform:translate(-50%,-50%);width:60%;aspect-ratio:2/1;background:radial-gradient(ellipse,rgba(255,79,154,.4),rgba(255,138,61,.14) 50%,transparent 72%);filter:blur(14px);z-index:0}
+.hero-band{position:absolute;bottom:0;left:0;right:0;display:flex;align-items:flex-end;justify-content:center;gap:clamp(4px,3.2vw,40px);z-index:2}
+.hero-band .hb{position:relative;filter:drop-shadow(0 16px 20px rgba(20,5,40,.5))}
+.hero-band .hb img{width:100%}
+.hb1{width:clamp(58px,9vw,104px)} .hb2{width:clamp(72px,11vw,124px)} .hb3{width:clamp(104px,16vw,180px)} .hb4{width:clamp(72px,11vw,124px)} .hb5{width:clamp(58px,9vw,104px)}
+.hero-shelf{position:absolute;bottom:34px;left:8%;right:8%;height:2px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.28),transparent);z-index:1}
+@media(max-width:900px){.hero{padding:40px 0 60px}.hero-scene{margin-top:44px}}
 
-  /* HERO */
-  .hero{background:linear-gradient(180deg,var(--sage-deep),var(--sage));position:relative;overflow:hidden;padding:70px 0 0}
-  .hero-in{max-width:var(--maxw);margin:0 auto;padding:0 24px;text-align:center}
-  .hero h1{font-size:clamp(34px,5vw,56px);color:#31463f;max-width:16ch;margin:0 auto 22px}
-  .hero .sub{font-size:clamp(18px,2.2vw,22px);color:#3b524b;max-width:44ch;margin:0 auto 30px;font-weight:500}
-  .hero .hl{color:#fff;background:var(--terra-deep);padding:2px 12px;border-radius:10px;white-space:nowrap}
-  .shelf{margin-top:56px;position:relative;height:230px}
-  .shelf-line{position:absolute;left:0;right:0;bottom:56px;height:2px;background:rgba(255,255,255,.35)}
-  .shelf-row{position:absolute;left:0;right:0;bottom:44px;display:flex;align-items:flex-end;justify-content:center;gap:clamp(6px,3vw,44px)}
-  .shelf-row img{filter:drop-shadow(0 14px 14px rgba(49,70,63,.22))}
-  .m1{width:96px}.m2{width:120px}.m3{width:170px}.m4{width:120px}.m5{width:96px}
-  @media(max-width:640px){.m1,.m5{width:58px}.m2,.m4{width:74px}.m3{width:104px}.shelf{height:150px}.shelf-line{bottom:34px}.shelf-row{bottom:26px}}
+/* DORES */
+.dores-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:48px}
+@media(max-width:900px){.dores-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:620px){.dores-grid{grid-template-columns:1fr}}
+.dor-card{position:relative;background:var(--card-glass);border:1px solid var(--card-borda);border-radius:20px;padding:26px 26px 24px;backdrop-filter:blur(6px);text-align:left;display:flex;flex-direction:column;transition:transform .25s ease,background .25s ease}
+.dor-card:hover{transform:translateY(-4px);background:rgba(255,255,255,.14)}
+.dor-card .x{position:absolute;top:14px;right:14px;display:flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;background:rgba(255,79,154,.16);border:1px solid rgba(255,79,154,.35);font-size:11px;font-weight:700;color:var(--pink-soft)}
+.dor-card .dor-ico{width:56px;height:56px;border-radius:50%;background:radial-gradient(circle at 32% 28%,rgba(255,122,181,.16),rgba(255,255,255,.03));border:1px solid rgba(255,122,181,.38);box-shadow:0 0 24px rgba(255,79,154,.14) inset;display:flex;align-items:center;justify-content:center;margin-bottom:16px}
+.dor-card .dor-ico svg{width:28px;height:28px;stroke:#ffd9bb;stroke-width:1.6;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.dor-card p{line-height:1.6;font-size:15.5px;color:var(--texto-claro);font-weight:600}
+.dores-final{margin:52px auto 0;max-width:760px;text-align:center;font-size:18px;line-height:1.7;color:var(--texto-suave)}
+.dores-final strong{color:#fff}
 
-  /* SECTIONS bg helpers */
-  .bg-cream{background:var(--cream-soft)} .bg-blush{background:var(--blush)}
-  .bg-sage{background:var(--sage)} .bg-slate{background:var(--slate);color:#eef4f1}
-  .bg-slate h2,.bg-slate h3{color:#fff} .bg-slate .eyebrow{color:#cfe0da;opacity:1}
-  .center{text-align:center} .mx{max-width:38ch;margin-left:auto;margin-right:auto}
-  h2.big{font-size:clamp(28px,3.6vw,40px);margin-bottom:18px}
+/* MÉTODO / COMO FUNCIONA (céu) */
+.sec-sky h2{color:#fff}.sec-sky .sub{color:rgba(255,255,255,.92)}
+.metodo-intro{max-width:720px;margin:0 auto;text-align:center}
+.metodo-intro p{color:rgba(255,255,255,.92);line-height:1.7;font-size:17px;margin-top:16px}
+.metodo-intro p strong{color:#fff}
+.passos{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;max-width:880px;margin:44px auto 0}
+@media(max-width:720px){.passos{grid-template-columns:1fr}}
+.passo{display:flex;gap:20px;align-items:center;background:#fff;border-radius:20px;padding:26px;box-shadow:0 18px 44px rgba(18,52,110,.25);transition:transform .25s ease}
+.passo:hover{transform:translateY(-4px)}
+.passo .num{font-family:'Cardo',serif;font-size:26px;font-weight:700;line-height:1;min-width:56px;height:56px;border-radius:50%;background:var(--grad-cta);color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 22px rgba(255,79,154,.35);flex-shrink:0}
+.passo h4{font-family:'Cardo',serif;font-size:19px;color:var(--texto-escuro);margin-bottom:3px}
+.passo p{color:#4a4470;line-height:1.55;font-size:15.5px;font-weight:600}
+.clock-badge{display:inline-flex;align-items:center;gap:10px;margin:40px auto 0;background:#fff;color:#b4590f;font-weight:700;padding:14px 28px;border-radius:100px;font-size:16px;box-shadow:0 14px 36px rgba(18,52,110,.28)}
+.clock-badge svg{width:20px;height:20px;stroke:#ff8a3d;stroke-width:2;fill:none}
 
-  /* dor list */
-  .pains{max-width:720px;margin:34px auto 0;display:grid;gap:14px}
-  .pain{display:flex;gap:14px;align-items:flex-start;background:rgba(255,255,255,.08);padding:16px 20px;border-radius:16px;font-size:17px}
-  .pain b{font-family:'Poppins',sans-serif;font-weight:700;color:var(--coral);font-size:20px;line-height:1.4}
+/* AUTORIDADE */
+.auth-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:56px;align-items:center}
+@media(max-width:860px){.auth-grid{grid-template-columns:1fr;gap:40px;text-align:center}}
+.auth-foto{position:relative;display:flex;justify-content:center}
+.auth-foto .anel{position:relative;width:min(330px,80vw);aspect-ratio:1;border-radius:50%;padding:8px;background:conic-gradient(from 120deg,var(--pink),var(--laranja),var(--magenta),var(--pink));box-shadow:0 0 80px rgba(255,79,154,.45),0 24px 60px rgba(15,4,35,.6)}
+.auth-foto img{width:100%;height:100%;object-fit:cover;border-radius:50%}
+.auth-foto .estrela{position:absolute;pointer-events:none}
+@media(max-width:860px){.auth-foto .anel{width:min(220px,55vw)}}
+.auth-nome{font-family:'Cardo',serif;font-size:28px;margin:18px 0 4px;color:#fff}
+.auth-cargo{font-size:15px;color:var(--laranja-soft);font-weight:600;margin-bottom:20px}
+.auth-grid p.bio{color:var(--texto-suave);line-height:1.75;font-size:17px;margin-bottom:16px}
+.auth-grid p.bio strong{color:#fff}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:34px}
+@media(max-width:640px){.stats{grid-template-columns:repeat(2,1fr)}}
+.stat{background:var(--card-glass);border:1px solid var(--card-borda);border-radius:16px;padding:18px 12px;text-align:center}
+.stat .n{font-family:'Cardo',serif;font-size:24px;color:var(--pink-soft);font-weight:700}
+.stat .l{font-size:12.5px;color:var(--texto-suave);font-weight:600;margin-top:4px;text-transform:uppercase;letter-spacing:.06em}
 
-  /* card grid */
-  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:22px;margin-top:40px}
-  .card{background:var(--white);border-radius:var(--r);padding:28px;box-shadow:0 8px 22px rgba(94,122,114,.10)}
-  .card h3{font-size:20px;margin-bottom:8px;color:var(--terra-deep)}
-  .card p{font-size:16px;color:var(--ink-soft)}
+/* APRENDIZADOS + PROVA SOCIAL */
+.checks{max-width:760px;margin:44px auto 0;display:grid;gap:14px}
+.check{display:flex;gap:16px;align-items:flex-start;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.28);border-radius:16px;padding:20px 24px;backdrop-filter:blur(6px)}
+.check .ck{min-width:28px;height:28px;border-radius:50%;background:var(--verde);display:flex;align-items:center;justify-content:center;box-shadow:0 4px 14px rgba(52,211,153,.45);margin-top:-1px}
+.check p{color:#fff;font-weight:600;line-height:1.55;font-size:16.5px;text-align:left}
+.depo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:52px}
+@media(max-width:880px){.depo-grid{grid-template-columns:1fr;max-width:520px;margin-left:auto;margin-right:auto}}
+.depo{background:#fff;border-radius:22px;padding:26px;box-shadow:0 20px 50px rgba(18,52,110,.28);display:flex;flex-direction:column;gap:16px}
+.depo-head{display:flex;align-items:center;gap:14px}
+.depo-avatar{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Cardo',serif;font-weight:700;font-size:20px;color:#fff}
+.depo-nome{font-weight:700;color:var(--texto-escuro);font-size:15.5px}
+.depo-info{font-size:13px;color:#7a86a8;font-weight:600}
+.depo-msg{background:#eef5ff;border-radius:4px 18px 18px 18px;padding:16px 18px;color:#33406b;line-height:1.6;font-size:15px;position:relative}
+.depo-foot{display:flex;align-items:center;gap:6px;font-size:12.5px;color:#9aa6c6;font-weight:600}
+.depo-foot .vv{color:#53bdeb;letter-spacing:-2px}
 
-  /* steps */
-  .steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:20px;margin-top:40px}
-  .step{background:var(--white);border-radius:var(--r);padding:26px;text-align:left;box-shadow:0 8px 22px rgba(94,122,114,.10)}
-  .step .num{font-family:'Poppins',sans-serif;font-weight:700;font-size:34px;color:var(--mustard);line-height:1}
-  .step h3{font-size:19px;margin:12px 0 6px}
-  .step p{font-size:15px;color:var(--ink-soft)}
-  .clock{display:inline-flex;align-items:center;gap:10px;background:var(--mustard);color:#5c4410;font-family:'Poppins',sans-serif;font-weight:600;padding:12px 24px;border-radius:999px;margin-top:34px;font-size:16px}
+/* BÔNUS + SUPER */
+.bonus-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:52px}
+@media(max-width:880px){.bonus-grid{grid-template-columns:1fr;max-width:560px;margin-left:auto;margin-right:auto}}
+.bonus-card{position:relative;background:var(--card-glass);border:1px solid var(--card-borda);border-radius:22px;padding:34px 30px 30px;backdrop-filter:blur(6px);border-top:4px solid transparent;transition:transform .25s ease;text-align:left}
+.bonus-card:hover{transform:translateY(-5px)}
+.bonus-label{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:6px 14px;border-radius:100px;margin-bottom:18px}
+.bonus-icone{width:62px;height:62px;border-radius:18px;display:flex;align-items:center;justify-content:center;font-size:28px;margin-bottom:18px}
+.bonus-card h3{font-size:20px;margin-bottom:12px;color:#fff}
+.bonus-card p{color:var(--texto-suave);line-height:1.65;font-size:15.5px}
+.b-pink{border-top-color:var(--pink);box-shadow:0 16px 44px rgba(255,79,154,.16)}
+.b-pink .bonus-icone{background:linear-gradient(135deg,rgba(255,79,154,.35),rgba(196,20,122,.3));border:1px solid rgba(255,79,154,.5)}
+.b-pink .bonus-label{background:rgba(255,79,154,.18);border:1px solid rgba(255,79,154,.45);color:var(--pink-soft)}
+.b-laranja{border-top-color:var(--laranja);box-shadow:0 16px 44px rgba(255,138,61,.16)}
+.b-laranja .bonus-icone{background:linear-gradient(135deg,rgba(255,138,61,.35),rgba(233,111,31,.3));border:1px solid rgba(255,138,61,.5)}
+.b-laranja .bonus-label{background:rgba(255,138,61,.18);border:1px solid rgba(255,138,61,.45);color:var(--laranja-soft)}
+.b-azul{border-top-color:var(--azul-300);box-shadow:0 16px 44px rgba(109,179,242,.16)}
+.b-azul .bonus-icone{background:linear-gradient(135deg,rgba(109,179,242,.35),rgba(74,144,217,.3));border:1px solid rgba(109,179,242,.5)}
+.b-azul .bonus-label{background:rgba(109,179,242,.18);border:1px solid rgba(109,179,242,.45);color:var(--azul-100)}
+.super{margin-top:64px;background:#fff;border-radius:28px;padding:clamp(32px,5vw,56px);text-align:center;box-shadow:0 30px 80px rgba(15,4,35,.45),0 0 0 1px rgba(255,255,255,.4);position:relative}
+.super .tag{background:var(--grad-cta);border:none;color:#fff;font-size:15px;padding:13px 30px;box-shadow:0 10px 32px rgba(255,79,154,.45);animation:pulsar 2.8s ease-in-out infinite}
+@keyframes pulsar{0%,100%{transform:scale(1);box-shadow:0 10px 32px rgba(255,79,154,.45)}50%{transform:scale(1.07);box-shadow:0 14px 44px rgba(255,79,154,.7)}}
+@media(prefers-reduced-motion:reduce){.super .tag{animation:none}}
+.super h3{font-size:clamp(24px,3.4vw,32px);color:var(--texto-escuro);margin-bottom:18px}
+.super p{color:#4a4470;line-height:1.7;font-size:17px;max-width:720px;margin:0 auto}
+.super p strong{color:var(--magenta)}
+.perfis-row{display:flex;align-items:flex-end;justify-content:center;gap:clamp(2px,1.5vw,18px);margin-top:42px;flex-wrap:wrap}
+.perfis-row .pf{display:flex;flex-direction:column;align-items:center;gap:10px;width:clamp(86px,14vw,150px)}
+.perfis-row .pf img{width:100%;filter:drop-shadow(0 12px 22px rgba(61,26,91,.25));transition:transform .3s ease}
+.perfis-row .pf:hover img{transform:translateY(-8px)}
+.perfis-row .pf span{font-size:13px;font-weight:700;color:#6b6395;text-transform:uppercase;letter-spacing:.08em}
+.perfis-row .pf.big{width:clamp(104px,17vw,178px)}
 
-  /* checklist */
-  .checks{max-width:640px;margin:34px auto 0;display:grid;gap:14px;text-align:left}
-  .check{display:flex;gap:14px;align-items:flex-start;font-size:18px}
-  .check .tick{flex:none;width:26px;height:26px;border-radius:50%;background:var(--mustard);color:#5c4410;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15px;margin-top:2px}
-  .bg-slate .check .tick{background:#bfe0d3;color:#22463b}
+/* PREÇO */
+.preco-box{max-width:620px;margin:0 auto;background:linear-gradient(165deg,rgba(255,255,255,.10),rgba(255,255,255,.04));border:1px solid rgba(255,255,255,.22);border-radius:30px;padding:clamp(32px,5vw,52px);text-align:center;backdrop-filter:blur(8px);box-shadow:0 0 90px rgba(255,79,154,.22),0 30px 80px rgba(10,2,28,.6);position:relative}
+.preco-box .lua-mini{position:absolute;top:-52px;left:50%;transform:translateX(-50%);width:96px;filter:drop-shadow(0 10px 20px rgba(10,2,28,.5))}
+.inclusos{margin:30px 0 8px;display:grid;gap:12px;text-align:left}
+.incluso{display:flex;gap:13px;align-items:flex-start;font-size:15.5px;line-height:1.5;color:var(--texto-claro);font-weight:600}
+.incluso .ck{min-width:24px;height:24px;border-radius:50%;margin-top:0;background:var(--verde);display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(52,211,153,.4)}
+.preco-valor{margin:30px 0 6px}
+.preco-valor .de{font-size:17px;color:var(--texto-suave);font-weight:600}
+.preco-valor .rs{font-family:'Cardo',serif;font-size:clamp(84px,16vw,120px);font-weight:700;color:#fff;line-height:1;text-shadow:0 0 50px rgba(255,79,154,.6)}
+.preco-valor .rs small{font-size:.42em;color:var(--laranja-soft)}
+.preco-valor .vista{font-size:17px;color:var(--texto-suave);font-weight:600;margin-top:6px}
+.preco-valor .parcelado{font-size:15px;color:var(--laranja-soft);font-weight:700;margin-top:8px}
+.preco-box .btn{margin-top:22px;width:100%;max-width:420px}
 
-  /* super bonus */
-  .profiles{display:flex;flex-wrap:wrap;justify-content:center;gap:30px;margin-top:40px}
-  .profile{text-align:center}
-  .profile img{width:104px;filter:drop-shadow(0 10px 12px rgba(49,70,63,.18))}
-  .profile span{display:block;font-family:'Poppins',sans-serif;font-weight:600;margin-top:8px;font-size:15px;color:var(--slate-ink)}
+/* GARANTIA + SUPORTE */
+.garantia-grid{display:grid;grid-template-columns:auto 1fr;gap:40px;align-items:center;max-width:840px;margin:0 auto}
+@media(max-width:720px){.garantia-grid{grid-template-columns:1fr;text-align:center;justify-items:center}}
+.selo{width:150px;height:150px;border-radius:50%;background:radial-gradient(circle at 35% 30%,rgba(255,255,255,.18),rgba(255,255,255,.04));border:2px solid rgba(52,211,153,.6);box-shadow:0 0 50px rgba(52,211,153,.3);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px}
+.selo .d{font-family:'Cardo',serif;font-size:46px;font-weight:700;color:var(--verde);line-height:1}
+.selo .t{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--texto-suave)}
+.garantia-grid p{color:var(--texto-suave);line-height:1.75;font-size:17px;margin-top:12px}
+.garantia-grid p strong{color:#fff}
+.suporte{max-width:720px;margin:70px auto 0;text-align:center;background:var(--card-glass);border:1px solid var(--card-borda);border-radius:26px;padding:clamp(30px,4vw,44px);backdrop-filter:blur(6px)}
+.suporte h3{color:#fff;font-size:24px;margin-bottom:6px}
+.suporte p{color:var(--texto-suave);line-height:1.7;margin:10px auto 24px;max-width:520px}
 
-  /* bonus */
-  .bonus{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:22px;margin-top:40px}
-  .bonus-c{background:var(--cream);border-radius:var(--r);padding:28px}
-  .bonus-c .tag{font-family:'Poppins',sans-serif;font-weight:700;color:var(--terra-deep);font-size:18px;margin-bottom:8px}
-  .bonus-c p{font-size:16px;color:var(--ink-soft)}
+/* FAQ */
+.faq-list{max-width:780px;margin:48px auto 0;display:grid;gap:14px}
+.faq-item{background:var(--card-glass);border:1px solid var(--card-borda);border-radius:18px;overflow:hidden;backdrop-filter:blur(6px)}
+.faq-q{width:100%;background:none;border:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:22px 26px;text-align:left;font-family:'Quicksand',sans-serif;font-weight:700;font-size:16.5px;color:#fff}
+.faq-q .seta{min-width:30px;height:30px;border-radius:50%;background:rgba(255,79,154,.2);border:1px solid rgba(255,79,154,.45);display:flex;align-items:center;justify-content:center;transition:transform .3s ease;color:var(--pink-soft);font-size:14px}
+.faq-item.aberto .seta{transform:rotate(45deg)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .35s ease}
+.faq-a p{padding:0 26px 24px;color:var(--texto-suave);line-height:1.7;font-size:15.5px}
 
-  /* authority */
-  .auth{display:grid;grid-template-columns:220px 1fr;gap:40px;align-items:center;max-width:820px;margin:0 auto}
-  .auth img{width:220px;height:220px;object-fit:cover;border-radius:var(--r-lg)}
-  .auth .quote{font-size:20px;font-style:italic;color:var(--slate-ink);margin:14px 0}
-  .stats{display:flex;flex-wrap:wrap;gap:8px 20px;font-family:'Poppins',sans-serif;font-weight:600;font-size:14px;color:var(--slate);margin-top:12px}
-  @media(max-width:640px){.auth{grid-template-columns:1fr;text-align:center;gap:24px}.auth img{margin:0 auto}.stats{justify-content:center}}
+/* CTA FINAL / FOOTER */
+.final h2{font-size:clamp(30px,4.6vw,46px);max-width:820px;margin:0 auto 20px}
+.final .sub{margin:0 auto 36px}
+.final .cena-final{position:relative;width:min(360px,90%);margin:0 auto 30px;height:clamp(120px,20vw,170px)}
+.final .cena-final .lua{position:absolute;top:-6px;left:50%;transform:translateX(-50%);width:74px;opacity:.95}
+.final .cena-final .fb{position:absolute;bottom:0;filter:drop-shadow(0 14px 24px rgba(10,2,28,.55))}
+.final .cena-final .f1{left:6%;width:74px}.final .cena-final .f2{left:50%;transform:translateX(-50%);width:118px}.final .cena-final .f3{right:6%;width:74px}
+footer{background:#1a0b30;padding:44px 0;text-align:center}
+footer .logo{font-family:'Cardo',serif;font-size:24px;color:#fff;letter-spacing:.04em}
+footer .sub-logo{font-size:14px;color:rgba(245,237,255,.55);margin:8px 0 18px}
+footer .copy{font-size:12.5px;color:rgba(245,237,255,.38)}
 
-  /* price */
-  .price-card{background:var(--white);color:var(--ink);max-width:560px;margin:0 auto;border-radius:var(--r-lg);padding:44px;text-align:center;box-shadow:0 20px 40px rgba(0,0,0,.18)}
-  .price-card .checks{margin-top:0;margin-bottom:26px}
-  .price-num{font-family:'Poppins',sans-serif;font-weight:700;font-size:56px;color:var(--terra-deep);line-height:1}
-  .price-num small{font-size:22px;font-weight:600}
-  .price-sub{color:var(--ink-soft);font-size:15px;margin:6px 0 26px}
-  .how{display:flex;flex-wrap:wrap;justify-content:center;gap:18px;margin-top:26px;font-size:14px;color:#cfe0da}
-
-  /* guarantee */
-  .seal{display:inline-flex;align-items:center;justify-content:center;width:88px;height:88px;border-radius:50%;background:var(--mustard);color:#5c4410;font-family:'Poppins',sans-serif;font-weight:700;font-size:15px;text-align:center;line-height:1.15;margin-bottom:20px}
-
-  /* faq */
-  .faq{max-width:720px;margin:34px auto 0;display:grid;gap:14px;text-align:left}
-  .qa{background:var(--white);border-radius:16px;padding:22px 26px}
-  .qa h3{font-size:18px;margin-bottom:6px}
-  .qa p{font-size:16px;color:var(--ink-soft)}
-
-  footer{background:var(--slate-ink);color:#cfe0da;text-align:center;padding:50px 24px;font-size:14px}
-  footer .logo{color:#fff;margin-bottom:10px;display:inline-block}
+.scroll-hint{display:none}
+@media(max-width:900px){
+  .scroll-hint{display:flex;flex-direction:column;align-items:center;gap:4px;margin-top:26px;color:var(--laranja-soft);font-size:12.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;opacity:.85}
+  .scroll-hint svg{stroke:var(--laranja-soft);animation:hintBounce 1.9s ease-in-out infinite}
+  @keyframes hintBounce{0%,100%{transform:translateY(0);opacity:.45}50%{transform:translateY(7px);opacity:1}}
+}
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease}
+.reveal.in{opacity:1;transform:translateY(0)}
+@media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}.twinkle,.float-slow,.float-slower,.scroll-hint svg{animation:none}}
 </style>
 </head>
 <body>
 
-<nav>
-  <div class="nav-in">
-    <div class="logo">Dream Baby <small>Pocket</small></div>
-    <a href="#comprar" class="nav-cta">Quero descobrir</a>
-  </div>
-</nav>
+<!-- ===== HERO ===== -->
+<section class="sec-dark hero">
+  <div class="glow-spot" style="width:560px;height:560px;background:#c4147a;top:-180px;right:-120px"></div>
+  <div class="glow-spot" style="width:420px;height:420px;background:#5b2d8f;bottom:-160px;left:-140px;opacity:.6"></div>
+  <svg class="deco twinkle" style="top:9%;left:6%" width="22" height="22" viewBox="0 0 24 24"><path d="M12 1l2.6 7.4L22 11l-7.4 2.6L12 21l-2.6-7.4L2 11l7.4-2.6L12 1z" fill="#ffd9bb"/></svg>
+  <svg class="deco twinkle d1" style="top:20%;left:40%" width="13" height="13" viewBox="0 0 24 24"><path d="M12 1l2.6 7.4L22 11l-7.4 2.6L12 21l-2.6-7.4L2 11l7.4-2.6L12 1z" fill="#fff"/></svg>
+  <svg class="deco twinkle d2" style="top:60%;left:3%" width="15" height="15" viewBox="0 0 24 24"><path d="M12 1l2.6 7.4L22 11l-7.4 2.6L12 21l-2.6-7.4L2 11l7.4-2.6L12 1z" fill="#ff7ab5"/></svg>
+  <svg class="deco twinkle d3" style="top:12%;right:28%" width="16" height="16" viewBox="0 0 24 24"><path d="M12 1l2.6 7.4L22 11l-7.4 2.6L12 21l-2.6-7.4L2 11l7.4-2.6L12 1z" fill="#fff"/></svg>
+  <svg class="deco float-slower" style="top:16%;left:-40px;opacity:.13" width="240" height="90" viewBox="0 0 240 90"><path d="M30 70a26 26 0 0 1 4-51 34 34 0 0 1 63-9 28 28 0 0 1 44 14 24 24 0 0 1 26 24 22 22 0 0 1-22 22H52a22 22 0 0 1-22 0z" fill="#fff"/></svg>
 
-<!-- HERO -->
-<header class="hero">
-  <div class="hero-in">
-    <h1>Descubra por que seu bebê não dorme bem</h1>
-    <p class="sub">Responda um quiz rápido, descubra o perfil de sono do seu bebê e saia com um plano pra ele ter um <b>sono de qualidade</b>, na soneca e à noite, em <span class="hl">cerca de 30 minutos</span>.</p>
-    <a href="#comprar" class="btn">Quero descobrir o sono do meu bebê</a>
-    <div class="trust" style="justify-content:center">
-      <span>✓ Acesso imediato</span><span>✓ No seu ritmo</span><span>✓ Garantia de 7 dias</span>
-    </div>
-    <div class="shelf">
-      <div class="shelf-line"></div>
-      <div class="shelf-row">
-        <img class="m1" src="assets/suricato.webp" alt="Suricato">
-        <img class="m2" src="assets/coruja.webp" alt="Coruja">
-        <img class="m3" src="assets/canguru.webp" alt="Canguru">
-        <img class="m4" src="assets/coala.webp" alt="Coala">
-        <img class="m5" src="assets/leao.webp" alt="Leão">
+  <div class="wrap">
+    <span class="tag tag-laranja reveal">✨ Método Dream Baby Pocket</span>
+    <h1 class="reveal">Descubra por que seu bebê <span class="hl-pink">não dorme bem</span></h1>
+    <p class="lead reveal">e monte um plano pra ele ter um sono de qualidade, na soneca e à noite.</p>
+    <p class="reveal">Você responde um quiz rápido, descobre o perfil de sono do seu bebê e recebe o caminho certo pro perfil dele. <strong>Com o plano na mão em cerca de 30 minutos.</strong></p>
+    <div class="pill-30 reveal">🌙 Sem deixar chorando sozinho · sem treino de choro</div>
+    <div class="hero-cta reveal"><a class="btn btn-lg" href="#preco">Quero descobrir o sono do meu bebê</a></div>
+    <p class="micro reveal">✓ Acesso imediato · ✓ No seu ritmo · ✓ Garantia de 7 dias</p>
+
+    <div class="hero-scene reveal">
+      <div class="glow-c"></div>
+      <svg class="lua float-slow" viewBox="0 0 100 100"><path d="M68 8a44 44 0 1 0 24 56A36 36 0 0 1 68 8z" fill="#ffd9bb" opacity=".92"/></svg>
+      <div class="hero-shelf"></div>
+      <div class="hero-band">
+        <div class="hb hb1"><img src="assets/suricato.webp" alt="Perfil Suricato"></div>
+        <div class="hb hb2"><img src="assets/coruja.webp" alt="Perfil Coruja"></div>
+        <div class="hb hb3"><img src="assets/canguru.webp" alt="Perfil Canguru"></div>
+        <div class="hb hb4"><img src="assets/coala.webp" alt="Perfil Coala"></div>
+        <div class="hb hb5"><img src="assets/leao.webp" alt="Perfil Leão"></div>
       </div>
     </div>
-  </div>
-</header>
 
-<!-- PROVA SOCIAL -->
-<section class="bg-cream center">
-  <div class="wrap">
-    <h2 class="big">Mais de <b>[X] mães</b> já descobriram por que o bebê não dormia bem</h2>
-    <p class="lead mx">E o que fazer a partir de hoje. Confira o que elas estão dizendo:</p>
-    <div class="grid">
-      <div class="card" style="min-height:150px"><p>[Print de WhatsApp]</p></div>
-      <div class="card" style="min-height:150px"><p>[Print de WhatsApp]</p></div>
-      <div class="card" style="min-height:150px"><p>[Print de WhatsApp]</p></div>
-      <div class="card" style="min-height:150px"><p>[Print de WhatsApp]</p></div>
+    <div class="scroll-hint reveal" aria-hidden="true">
+      <span>Entenda o sono do seu bebê</span>
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
     </div>
   </div>
 </section>
 
-<!-- DOR -->
-<section class="bg-slate center">
-  <div class="wrap">
-    <div class="eyebrow">Você reconhece?</div>
-    <h2 class="big">Alguma dessas cenas é a sua?</h2>
-    <div class="pains">
-      <div class="pain"><b>✕</b><span>Você deita ele no berço com todo cuidado do mundo e ele abre o olho na hora.</span></div>
-      <div class="pain"><b>✕</b><span>A soneca só acontece no colo, e quando você tenta transferir, acabou.</span></div>
-      <div class="pain"><b>✕</b><span>Ele acorda de madrugada várias vezes e só volta a dormir no colo ou no peito.</span></div>
-      <div class="pain"><b>✕</b><span>Você já tentou ninar, shushar, deitar do lado, esperar apagar mais fundo, e nada resolve por muito tempo.</span></div>
-      <div class="pain"><b>✕</b><span>Toda hora do sono virou uma negociação esgotante.</span></div>
-      <div class="pain"><b>✕</b><span>Você ama ele mais do que tudo, mas está no seu limite.</span></div>
+<!-- ===== DORES ===== -->
+<section class="sec-dark-deep pad">
+  <div class="glow-spot" style="width:480px;height:480px;background:#7c1a64;top:30%;left:-180px;opacity:.45"></div>
+  <svg class="deco twinkle" style="top:8%;right:8%" width="14" height="14" viewBox="0 0 24 24"><path d="M12 1l2.6 7.4L22 11l-7.4 2.6L12 21l-2.6-7.4L2 11l7.4-2.6L12 1z" fill="#fff"/></svg>
+  <svg class="deco twinkle d2" style="bottom:14%;left:5%" width="18" height="18" viewBox="0 0 24 24"><path d="M12 1l2.6 7.4L22 11l-7.4 2.6L12 21l-2.6-7.4L2 11l7.4-2.6L12 1z" fill="#ffd9bb"/></svg>
+  <div class="wrap center">
+    <h2 class="reveal">Você reconhece <span class="hl-pink">alguma dessas cenas</span>?</h2>
+    <div class="dores-grid">
+      <div class="dor-card reveal"><span class="x">✕</span>
+        <span class="dor-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 5v15M20 5v15M4 8.5h16M4 15h16M8 8.5V15M12 8.5V15M16 8.5V15"/></svg></span>
+        <p>Você deita ele no berço com todo cuidado do mundo... e ele abre o olho na hora</p>
+      </div>
+      <div class="dor-card reveal"><span class="x">✕</span>
+        <span class="dor-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="6.6" r="2.6"/><path d="M4.5 12.5v1.2c0 4.6 15 4.6 15 0v-1.2M4.5 12.5c0-1.6 1.6-2.4 3-1.6M19.5 12.5c0-1.6-1.6-2.4-3-1.6"/></svg></span>
+        <p>A soneca só acontece no colo. E quando você tenta transferir, acabou</p>
+      </div>
+      <div class="dor-card reveal"><span class="x">✕</span>
+        <span class="dor-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M18.5 14.8A7.6 7.6 0 1 1 9.2 5.5a6.2 6.2 0 0 0 9.3 9.3z"/><path d="M18 3.5v3M16.5 5h3"/></svg></span>
+        <p>Ele acorda de madrugada e só volta a dormir no colo ou no peito</p>
+      </div>
+      <div class="dor-card reveal"><span class="x">✕</span>
+        <span class="dor-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-2.4-5.7"/><path d="M20 3.5V7h-3.5"/></svg></span>
+        <p>Você já tentou de tudo que falam por aí... nada resolve por muito tempo</p>
+      </div>
+      <div class="dor-card reveal"><span class="x">✕</span>
+        <span class="dor-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6.5 3.5h11M6.5 20.5h11M8 3.5v2.8c0 2.8 4 3.6 4 5.7 0 2.1-4 2.9-4 5.7v2.8M16 3.5v2.8c0 2.8-4 3.6-4 5.7 0 2.1 4 2.9 4 5.7v2.8"/></svg></span>
+        <p>Toda hora do sono virou uma negociação esgotante</p>
+      </div>
+      <div class="dor-card reveal"><span class="x">✕</span>
+        <span class="dor-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="8" width="16.5" height="8.5" rx="2.4"/><path d="M21.5 11v2.8M6.2 10.8v3"/></svg></span>
+        <p>Você ama seu bebê mais do que tudo, mas está no limite</p>
+      </div>
     </div>
-    <p class="lead" style="margin-top:30px">Se você se identificou com pelo menos duas, isso não é frescura nem mau costume. E você não fez nada errado.</p>
+    <p class="dores-final reveal">Não é frescura, não é mau costume, e você não fez nada errado. <strong>O problema é que sem entender o perfil de sono do seu bebê, qualquer tentativa vira sofrimento dos dois lados.</strong></p>
   </div>
 </section>
 
-<!-- DIAGNOSTICO -->
-<section class="bg-cream center">
+<!-- ===== MÉTODO / COMO FUNCIONA ===== -->
+<svg class="curve" viewBox="0 0 1440 70" preserveAspectRatio="none" style="background:#23103f"><path d="M0 70C360 0 1080 0 1440 70V70H0z" fill="#3478c4"/></svg>
+<section class="sec-sky pad" style="padding-top:40px">
+  <div class="glow-spot" style="width:500px;height:500px;background:#fff;top:-220px;left:50%;transform:translateX(-50%);opacity:.25"></div>
+  <svg class="deco float-slow" style="top:10%;left:-50px;opacity:.5" width="260" height="100" viewBox="0 0 240 90"><path d="M30 70a26 26 0 0 1 4-51 34 34 0 0 1 63-9 28 28 0 0 1 44 14 24 24 0 0 1 26 24 22 22 0 0 1-22 22H52a22 22 0 0 1-22 0z" fill="#fff"/></svg>
+  <svg class="deco float-slower" style="bottom:8%;right:-70px;opacity:.4" width="300" height="115" viewBox="0 0 240 90"><path d="M30 70a26 26 0 0 1 4-51 34 34 0 0 1 63-9 28 28 0 0 1 44 14 24 24 0 0 1 26 24 22 22 0 0 1-22 22H52a22 22 0 0 1-22 0z" fill="#fff"/></svg>
   <div class="wrap">
-    <div class="eyebrow">Entenda de uma vez</div>
-    <h2 class="big">O que está por trás disso</h2>
-    <p class="lead mx">O problema não é o seu bebê, e muito menos você. É que ninguém te mostrou o que acontece no sono dele.</p>
-    <div class="grid">
-      <div class="card"><h3>Associação de sono</h3><p>Ele aprendeu a adormecer de um jeito só (colo, peito, balanço). Sozinho, ele ainda não sabe como.</p></div>
-      <div class="card"><h3>Falta de autonomia</h3><p>Ninguém ensinou o bebê a se acalmar e voltar a dormir sem precisar de você no meio da noite.</p></div>
-      <div class="card"><h3>Berço sem preparo</h3><p>Ele acorda na hora porque a transição foi feita do jeito errado, não porque "odeia o berço".</p></div>
-      <div class="card"><h3>Cada bebê é um bebê</h3><p>Conselho genérico ignora o perfil do seu filho. O que serve pro bebê da vizinha pode travar o seu.</p></div>
+    <div class="metodo-intro">
+      <span class="tag reveal" style="background:rgba(52,211,153,.18);border-color:rgba(52,211,153,.5);color:#d7ffe9">🕊️ Totalmente sem choro</span>
+      <h2 class="reveal">Do quiz ao plano na mão, em <span class="hl-laranja">cerca de 30 minutos</span></h2>
+      <p class="reveal">O Pocket é a versão direta e enxuta do método. Nada de curso longo pra assistir por semanas. Você descobre o perfil de sono do seu bebê e já sai com o passo a passo pra aplicar já na próxima soneca, de forma gradual e gentil.</p>
+      <p class="reveal"><strong>Sem tarefinhas. Sem técnicas de "pegar e soltar". Sem você ter que endurecer o coração.</strong></p>
     </div>
-    <p class="lead" style="margin-top:34px">É por isso que o primeiro passo é descobrir o perfil de sono do <b>seu</b> bebê.</p>
+    <div class="passos">
+      <div class="passo reveal"><span class="num">01</span><div><h4>Responda o quiz</h4><p>Poucas perguntas sobre a rotina e o sono do seu bebê.</p></div></div>
+      <div class="passo reveal"><span class="num">02</span><div><h4>Descubra o perfil</h4><p>Na hora: o perfil de sono dele e o que está travando o sono.</p></div></div>
+      <div class="passo reveal"><span class="num">03</span><div><h4>Siga o plano do perfil</h4><p>O passo a passo pro perfil que apareceu: berço, sonecas e noite.</p></div></div>
+      <div class="passo reveal"><span class="num">04</span><div><h4>Bebê dormindo bem</h4><p>Você aplica no ritmo do seu bebê, sem adivinhação e sem choro.</p></div></div>
+    </div>
+    <div class="center"><div class="clock-badge reveal"><svg viewBox="0 0 24 24"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2M9 2h6"/></svg>Plano na mão em ~30 minutos</div></div>
   </div>
 </section>
 
-<!-- COMO FUNCIONA -->
-<section class="bg-blush center">
+<!-- ===== AUTORIDADE ===== -->
+<svg class="curve" viewBox="0 0 1440 70" preserveAspectRatio="none" style="background:#6db3f2"><path d="M0 70C360 0 1080 0 1440 70V70H0z" fill="#3d1a5b"/></svg>
+<section class="sec-dark pad" style="padding-top:50px">
+  <div class="glow-spot" style="width:520px;height:520px;background:#c4147a;top:10%;left:-160px;opacity:.4"></div>
+  <svg class="deco twinkle d1" style="top:14%;right:10%" width="18" height="18" viewBox="0 0 24 24"><path d="M12 1l2.6 7.4L22 11l-7.4 2.6L12 21l-2.6-7.4L2 11l7.4-2.6L12 1z" fill="#ffd9bb"/></svg>
   <div class="wrap">
-    <div class="eyebrow">Do quiz ao plano na mão</div>
-    <h2 class="big">Em cerca de 30 minutos, sem curso longo</h2>
-    <p class="lead mx">O Pocket é a versão direta e enxuta do método. Você entende o perfil do seu bebê e já sai com o passo a passo pra aplicar já na próxima soneca.</p>
-    <div class="steps">
-      <div class="step"><div class="num">01</div><h3>Responda o quiz</h3><p>Poucas perguntas sobre a rotina e o sono do seu bebê.</p></div>
-      <div class="step"><div class="num">02</div><h3>Descubra o perfil</h3><p>Na hora: o perfil de sono dele e o que está travando o sono.</p></div>
-      <div class="step"><div class="num">03</div><h3>Siga o plano do perfil</h3><p>O passo a passo do perfil que apareceu: berço, sonecas e noite.</p></div>
-      <div class="step"><div class="num">04</div><h3>Bebê dormindo bem</h3><p>Você ajusta no ritmo do seu bebê, sem adivinhação e sem treino de choro.</p></div>
-    </div>
-    <div class="clock">⏱ Plano na mão em ~30 min</div>
-  </div>
-</section>
-
-<!-- SUPER BONUS -->
-<section class="bg-sage center">
-  <div class="wrap">
-    <div class="eyebrow">O grande diferencial</div>
-    <h2 class="big">Descobriu um perfil hoje. Mas você leva os cinco.</h2>
-    <p class="lead mx">Bebê cresce, o comportamento muda, e às vezes o perfil de sono muda junto. Por isso você recebe os 5 perfis do Dream Baby. Se amanhã o sono mudar, você já sabe o que fazer, sem comprar nada de novo.</p>
-    <div class="profiles">
-      <div class="profile"><img src="assets/canguru.webp" alt=""><span>Canguru</span></div>
-      <div class="profile"><img src="assets/coala.webp" alt=""><span>Coala</span></div>
-      <div class="profile"><img src="assets/coruja.webp" alt=""><span>Coruja</span></div>
-      <div class="profile"><img src="assets/leao.webp" alt=""><span>Leão</span></div>
-      <div class="profile"><img src="assets/suricato.webp" alt=""><span>Suricato</span></div>
-    </div>
-  </div>
-</section>
-
-<!-- O QUE RECEBE -->
-<section class="bg-slate center">
-  <div class="wrap">
-    <div class="eyebrow">No seu acesso</div>
-    <h2 class="big">Tudo que vem com você</h2>
-    <div class="checks">
-      <div class="check"><span class="tick">✓</span><span>Quiz de diagnóstico do sono do seu bebê</span></div>
-      <div class="check"><span class="tick">✓</span><span>O perfil de sono dele e o que está travando o sono, na hora</span></div>
-      <div class="check"><span class="tick">✓</span><span>Plano de sono pro perfil do seu bebê (berço, sonecas e noite)</span></div>
-      <div class="check"><span class="tick">✓</span><span>Passo a passo da transição do colo e do peito pro berço, sem treino de choro</span></div>
-      <div class="check"><span class="tick">✓</span><span>Os 5 perfis de sono completos, pra qualquer fase que vier</span></div>
-      <div class="check"><span class="tick">✓</span><span>Acesso imediato: assiste no celular enquanto o bebê dorme</span></div>
-    </div>
-  </div>
-</section>
-
-<!-- BONUS -->
-<section class="bg-cream center">
-  <div class="wrap">
-    <div class="eyebrow">Três presentes</div>
-    <h2 class="big">O método já resolve. Mas você ainda ganha bônus.</h2>
-    <div class="bonus">
-      <div class="bonus-c"><div class="tag">Saltos de Desenvolvimento</div><p>Quando o bebê entra em salto, parece que tudo desandou. Esse bônus te explica o que acontece pra você não perder a calma nem o rumo.</p></div>
-      <div class="bonus-c"><div class="tag">Atividades pra Gastar Energia</div><p>Bebê precisa gastar energia acordado pra dormir melhor. Atividades por fase pra preparar o terreno pro sono.</p></div>
-      <div class="bonus-c"><div class="tag">Mini Curso A Rotina do Bebê</div><p>Rotina não é engessar, é previsibilidade. Parte fundamental pro bebê ganhar autonomia de sono.</p></div>
-    </div>
-  </div>
-</section>
-
-<!-- AUTORIDADE -->
-<section class="bg-blush">
-  <div class="wrap">
-    <div class="auth">
-      <img src="assets/day-portrait-web.jpg" alt="Dayane dos Anjos">
+    <div class="auth-grid">
+      <div class="auth-foto reveal">
+        <div class="anel"><img src="assets/day-circle.webp" alt="Dayane Dos Anjos, consultora de sono"></div>
+        <svg class="estrela twinkle" style="top:4%;right:8%" width="26" height="26" viewBox="0 0 24 24"><path d="M12 1l2.6 7.4L22 11l-7.4 2.6L12 21l-2.6-7.4L2 11l7.4-2.6L12 1z" fill="#ff7ab5"/></svg>
+        <svg class="estrela twinkle d2" style="bottom:6%;left:4%" width="18" height="18" viewBox="0 0 24 24"><path d="M12 1l2.6 7.4L22 11l-7.4 2.6L12 21l-2.6-7.4L2 11l7.4-2.6L12 1z" fill="#ffd9bb"/></svg>
+      </div>
       <div>
-        <div class="eyebrow">Quem criou o Dream Baby</div>
-        <h2 style="font-size:28px">Dayane dos Anjos</h2>
-        <p style="color:var(--ink-soft);margin-top:6px">Consultora de sono, amamentação e cuidados com o bebê. Mãe.</p>
-        <p class="quote">"Cada bebê é um bebê. Quando a mãe entende o perfil do filho dela, tudo muda."</p>
-        <div class="stats"><span>+21 mil alunas</span><span>+778k YouTube</span><span>+615k Instagram</span><span>+650k TikTok</span></div>
+        <h2 class="reveal">Quem criou <span class="hl-laranja">esse caminho</span></h2>
+        <p class="auth-nome reveal">Dayane Dos Anjos</p>
+        <p class="auth-cargo reveal">Consultora de sono, amamentação e cuidados com o bebê.</p>
+        <p class="bio reveal">Depois de orientar <strong>mais de 21 mil alunas</strong>, a Day percebeu que não existe receita única pra sono de bebê. Cada perfil tem um padrão diferente, uma dor diferente, e precisa de uma abordagem diferente.</p>
+        <p class="bio reveal">Por isso o Dream Baby foi construído perfil por perfil. Pra ela, <strong>sono é necessidade básica, assim como se alimentar</strong>. E deixar chorar não é o caminho: com carinho e presença, você guia o bebê pra uma boa qualidade de sono desde cedo.</p>
+        <div class="stats">
+          <div class="stat reveal"><div class="n">+21 mil</div><div class="l">alunas</div></div>
+          <div class="stat reveal"><div class="n">+778k</div><div class="l">YouTube</div></div>
+          <div class="stat reveal"><div class="n">+615k</div><div class="l">Instagram</div></div>
+          <div class="stat reveal"><div class="n">+650k</div><div class="l">TikTok</div></div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- PRECO -->
-<section class="bg-slate center" id="comprar">
-  <div class="wrap">
-    <div class="eyebrow">Garanta já o seu</div>
-    <h2 class="big">Tudo isso, num acesso só</h2>
-    <div class="price-card">
-      <div class="checks" style="max-width:none">
-        <div class="check"><span class="tick">✓</span><span>Acesso imediato ao Dream Baby Pocket</span></div>
-        <div class="check"><span class="tick">✓</span><span>Quiz + o perfil do seu bebê + plano de sono</span></div>
-        <div class="check"><span class="tick">✓</span><span>Os 5 perfis de sono completos</span></div>
-        <div class="check"><span class="tick">✓</span><span>Ebook Saltos de Desenvolvimento</span></div>
-        <div class="check"><span class="tick">✓</span><span>Ebook Atividades pra Gastar Energia</span></div>
-        <div class="check"><span class="tick">✓</span><span>Mini Curso A Rotina do Bebê</span></div>
-        <div class="check"><span class="tick">✓</span><span>7 dias de garantia incondicional</span></div>
-      </div>
-      <div class="price-num">R$67 <small>à vista</small></div>
-      <div class="price-sub">ou 12x de [R$ X,XX]</div>
-      <a href="[CHECKOUT]" class="btn">Quero descobrir o sono do meu bebê</a>
-    </div>
-    <div class="how">
-      <span>1. Você faz a compra</span><span>2. O acesso chega no e-mail na hora</span><span>3. Responde o quiz e recebe o plano</span>
-    </div>
-  </div>
-</section>
-
-<!-- GARANTIA -->
-<section class="bg-cream center">
-  <div class="wrap">
-    <div class="seal">7 DIAS<br>GARANTIA</div>
-    <h2 class="big">Sem burocracia</h2>
-    <p class="lead mx">Aplica o método, testa com seu bebê. Se por qualquer motivo não for pra vocês, é só pedir o reembolso dentro de 7 dias direto na Greenn. Sem perguntas, sem enrolação.</p>
-  </div>
-</section>
-
-<!-- PRA QUEM E -->
-<section class="bg-sage center">
-  <div class="wrap">
-    <div class="eyebrow">É pra você?</div>
-    <h2 class="big">O Pocket é pra você que…</h2>
+<!-- ===== APRENDIZADOS + PROVA SOCIAL ===== -->
+<svg class="curve" viewBox="0 0 1440 70" preserveAspectRatio="none" style="background:#2f1452"><path d="M0 70C360 0 1080 0 1440 70V70H0z" fill="#3478c4"/></svg>
+<section class="sec-sky pad" style="padding-top:46px">
+  <svg class="deco float-slow" style="top:6%;right:-40px;opacity:.45" width="240" height="92" viewBox="0 0 240 90"><path d="M30 70a26 26 0 0 1 4-51 34 34 0 0 1 63-9 28 28 0 0 1 44 14 24 24 0 0 1 26 24 22 22 0 0 1-22 22H52a22 22 0 0 1-22 0z" fill="#fff"/></svg>
+  <div class="wrap center">
+    <h2 class="reveal">O que você vai aprender sobre o <span class="hl-laranja">sono do seu bebê</span></h2>
     <div class="checks">
-      <div class="check"><span class="tick">✓</span><span>tem um bebê que só dorme no colo ou no peito;</span></div>
-      <div class="check"><span class="tick">✓</span><span>coloca no berço e ele acorda na mesma hora;</span></div>
-      <div class="check"><span class="tick">✓</span><span>vê as sonecas do dia curtas demais ou só no colo;</span></div>
-      <div class="check"><span class="tick">✓</span><span>passa a noite acordando várias vezes pra fazer dormir;</span></div>
-      <div class="check"><span class="tick">✓</span><span>já tentou vídeo solto da internet e não resolveu;</span></div>
-      <div class="check"><span class="tick">✓</span><span>está exausta de ver o bebê dormir mal e quer mudar isso;</span></div>
-      <div class="check"><span class="tick">✓</span><span>é mãe de primeira viagem e quer acertar desde o começo;</span></div>
-      <div class="check"><span class="tick">✓</span><span>é gestante e quer chegar preparada antes do bebê nascer.</span></div>
+      <div class="check reveal"><span class="ck"><svg width="14" height="14" viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5" stroke="#fff" stroke-width="3.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span><p>Como ensinar seu bebê a dormir no berço, sem choro</p></div>
+      <div class="check reveal"><span class="ck"><svg width="14" height="14" viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5" stroke="#fff" stroke-width="3.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span><p>Como organizar as sonecas do dia e o sono da noite</p></div>
+      <div class="check reveal"><span class="ck"><svg width="14" height="14" viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5" stroke="#fff" stroke-width="3.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span><p>Como fazer o bebê ter sonecas mais longas e um sono mais profundo</p></div>
+      <div class="check reveal"><span class="ck"><svg width="14" height="14" viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5" stroke="#fff" stroke-width="3.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span><p>Como criar uma rotina que funciona pro perfil dele</p></div>
+      <div class="check reveal"><span class="ck"><svg width="14" height="14" viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5" stroke="#fff" stroke-width="3.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span><p>Como lidar com regressões sem perder o que você conquistou</p></div>
+      <div class="check reveal"><span class="ck"><svg width="14" height="14" viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5" stroke="#fff" stroke-width="3.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span><p>O que fazer nos saltos de desenvolvimento sem entrar em colapso</p></div>
     </div>
-    <p class="lead" style="margin-top:28px">Se você se identificou com pelo menos dois itens, o Pocket é pra você.</p>
+    <h2 class="reveal" style="margin-top:90px">Você <span class="hl-laranja">não está sozinha</span> nisso</h2>
+    <p class="sub reveal" style="margin:0 auto">Veja o que outras mães estão falando <!-- [PLACEHOLDER: trocar por prints reais de WhatsApp] --></p>
+    <div class="depo-grid">
+      <div class="depo reveal">
+        <div class="depo-head"><div class="depo-avatar" style="background:linear-gradient(135deg,#ff4f9a,#c4147a)">K</div><div><div class="depo-nome">Karen Larissa</div><div class="depo-info">mãe de bebê de 2 meses</div></div></div>
+        <div class="depo-msg">"Antes era 20 minutos no berço ou 2h no colo. Hoje dou mamá, um beijo e coloco no berço, ela vira o rosto e fecha os olhos. Parece que tô vivendo um sonho!"</div>
+        <div class="depo-foot">22:41 <span class="vv">✓✓</span></div>
+      </div>
+      <div class="depo reveal">
+        <div class="depo-head"><div class="depo-avatar" style="background:linear-gradient(135deg,#ff8a3d,#e96f1f)">H</div><div><div class="depo-nome">Helena</div><div class="depo-info">mãe de bebê de 3 meses</div></div></div>
+        <div class="depo-msg">"Coloquei em prática e em menos de uma semana as sonecas já estavam um sucesso. Achei que não conseguiria, mas graças ao curso venci essa etapa."</div>
+        <div class="depo-foot">14:08 <span class="vv">✓✓</span></div>
+      </div>
+      <div class="depo reveal">
+        <div class="depo-head"><div class="depo-avatar" style="background:linear-gradient(135deg,#6db3f2,#3478c4)">A</div><div><div class="depo-nome">Ana</div><div class="depo-info">mãe de bebê de 4 meses</div></div></div>
+        <div class="depo-msg">"Hoje nem gosta mais de colo quando tá com sono. E as sonecas dela não baixam de 1 hora, acorda com um humor de dar inveja!"</div>
+        <div class="depo-foot">09:33 <span class="vv">✓✓</span></div>
+      </div>
+    </div>
   </div>
 </section>
 
-<!-- FAQ -->
-<section class="bg-cream center">
-  <div class="wrap">
-    <div class="eyebrow">Perguntas frequentes</div>
-    <h2 class="big">Ficou alguma dúvida?</h2>
-    <div class="faq">
-      <div class="qa"><h3>Quanto tempo leva pra ver o meu plano?</h3><p>Em cerca de 30 minutos você responde o quiz, descobre o perfil e já sai com o passo a passo na mão pra aplicar já na próxima soneca.</p></div>
-      <div class="qa"><h3>Qual é a forma de pagamento?</h3><p>Cartão, Pix ou boleto. No cartão você pode parcelar.</p></div>
-      <div class="qa"><h3>Funciona pro meu bebê?</h3><p>O plano parte do quiz, então é montado a partir das respostas sobre o SEU bebê. E você ainda leva os cinco perfis, pra qualquer fase que vier.</p></div>
-      <div class="qa"><h3>Tem treino de choro?</h3><p>Não. A proposta é o bebê aprender a dormir no berço com acolhimento, no ritmo dele.</p></div>
-      <div class="qa"><h3>A partir de que idade posso usar?</h3><p>Serve desde o recém-nascido. Se você é gestante, dá pra já chegar preparada.</p></div>
-      <div class="qa"><h3>Tem garantia?</h3><p>Sim, 7 dias. Se não for pra você, devolvemos o seu dinheiro.</p></div>
+<!-- ===== BÔNUS + SUPER BÔNUS ===== -->
+<svg class="curve" viewBox="0 0 1440 70" preserveAspectRatio="none" style="background:#6db3f2"><path d="M0 70C360 0 1080 0 1440 70V70H0z" fill="#23103f"/></svg>
+<section class="sec-dark-deep pad" style="padding-top:50px">
+  <div class="glow-spot" style="width:540px;height:540px;background:#5b2d8f;top:50%;right:-200px;opacity:.5"></div>
+  <svg class="deco twinkle" style="top:6%;left:7%" width="16" height="16" viewBox="0 0 24 24"><path d="M12 1l2.6 7.4L22 11l-7.4 2.6L12 21l-2.6-7.4L2 11l7.4-2.6L12 1z" fill="#fff"/></svg>
+  <svg class="deco twinkle d3" style="top:20%;right:12%" width="20" height="20" viewBox="0 0 24 24"><path d="M12 1l2.6 7.4L22 11l-7.4 2.6L12 21l-2.6-7.4L2 11l7.4-2.6L12 1z" fill="#ffd9bb"/></svg>
+  <div class="wrap center">
+    <h2 class="reveal">O método já resolve. Mas você ainda ganha <span class="hl-pink">três presentes</span>.</h2>
+    <p class="sub reveal" style="margin:0 auto">Pra você ter tudo em mãos nos momentos que mais apertam, sem pagar nada a mais.</p>
+    <div class="bonus-grid">
+      <div class="bonus-card b-pink reveal">
+        <span class="bonus-label">🎁 Bônus 01 · E-book</span><div class="bonus-icone">📈</div>
+        <h3>Saltos de Desenvolvimento e Picos de Crescimento</h3>
+        <p>Quando o bebê entra em salto, parece que tudo que você conquistou foi por água abaixo. Esse bônus te explica o que está acontecendo pra você não perder a calma nem o rumo.</p>
+      </div>
+      <div class="bonus-card b-laranja reveal">
+        <span class="bonus-label">🎁 Bônus 02 · E-book</span><div class="bonus-icone">🧸</div>
+        <h3>Atividades para Estimular e Gastar Energia</h3>
+        <p>Bebê precisa gastar energia acordado pra dormir melhor. Atividades por fase pra aproveitar o tempo de vigília e preparar o terreno pro sono.</p>
+      </div>
+      <div class="bonus-card b-azul reveal">
+        <span class="bonus-label">🎁 Bônus 03 · Mini curso</span><div class="bonus-icone">⏰</div>
+        <h3>Mini Curso A Rotina do Bebê</h3>
+        <p>Rotina não é engessamento, é previsibilidade. Uma rotina consistente é parte fundamental do processo pro bebê ganhar autonomia de sono.</p>
+      </div>
+    </div>
+    <div class="super reveal">
+      <span class="tag">🎁 Super Bônus Exclusivo</span>
+      <h3 class="serif">Descobriu um perfil hoje. Mas você <span class="hl-laranja-escuro">leva os cinco</span>.</h3>
+      <p>Bebê cresce, o comportamento muda, e às vezes o perfil de sono muda junto. Por isso você recebe <strong>todos os 5 perfis do Dream Baby: Canguru, Coala, Coruja, Leão e Suricato</strong>. Se amanhã o sono do seu bebê mudar, você já sabe o que fazer. Sem comprar nada de novo.</p>
+      <div class="perfis-row">
+        <div class="pf"><img src="assets/coala.webp" alt="Perfil Coala"><span>Coala</span></div>
+        <div class="pf"><img src="assets/coruja.webp" alt="Perfil Coruja"><span>Coruja</span></div>
+        <div class="pf big"><img src="assets/canguru.webp" alt="Perfil Canguru"><span>Canguru</span></div>
+        <div class="pf"><img src="assets/leao.webp" alt="Perfil Leão"><span>Leão</span></div>
+        <div class="pf"><img src="assets/suricato.webp" alt="Perfil Suricato"><span>Suricato</span></div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- CTA FINAL -->
-<section class="bg-slate center">
+<!-- ===== PREÇO ===== -->
+<section class="sec-dark pad" id="preco" style="padding-top:120px">
+  <div class="glow-spot" style="width:600px;height:600px;background:#c4147a;top:50%;left:50%;transform:translate(-50%,-50%);opacity:.35"></div>
+  <svg class="deco twinkle d1" style="top:10%;left:10%" width="16" height="16" viewBox="0 0 24 24"><path d="M12 1l2.6 7.4L22 11l-7.4 2.6L12 21l-2.6-7.4L2 11l7.4-2.6L12 1z" fill="#fff"/></svg>
+  <svg class="deco twinkle d2" style="bottom:12%;right:8%" width="20" height="20" viewBox="0 0 24 24"><path d="M12 1l2.6 7.4L22 11l-7.4 2.6L12 21l-2.6-7.4L2 11l7.4-2.6L12 1z" fill="#ffd9bb"/></svg>
   <div class="wrap">
-    <h2 class="big">Seu bebê pode aprender a dormir bem.<br>Nas sonecas e à noite.</h2>
-    <p class="lead mx">Descubra o perfil de sono dele e saia com o plano na mão em cerca de 30 minutos. Por R$67, você começa a mudar isso hoje.</p>
-    <div style="margin-top:12px"><a href="#comprar" class="btn">Quero descobrir o sono do meu bebê</a></div>
-    <p style="margin-top:26px;font-size:15px;color:#cfe0da">Ficou com alguma dúvida? A equipe está no WhatsApp.</p>
-    <div style="margin-top:12px"><a href="[WHATSAPP]" class="btn mustard">Chama no WhatsApp</a></div>
+    <div class="preco-box reveal">
+      <svg class="lua-mini float-slow" viewBox="0 0 100 100"><path d="M68 8a44 44 0 1 0 24 56A36 36 0 0 1 68 8z" fill="#ffd9bb" opacity=".95"/></svg>
+      <h2 style="margin-top:30px">Garanta <span class="hl-pink">já o seu</span></h2>
+      <p class="sub" style="margin:0 auto">O que está incluso:</p>
+      <div class="inclusos">
+        <div class="incluso"><span class="ck"><svg width="13" height="13" viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5" stroke="#fff" stroke-width="3.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Acesso imediato ao Dream Baby Pocket</div>
+        <div class="incluso"><span class="ck"><svg width="13" height="13" viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5" stroke="#fff" stroke-width="3.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Quiz de diagnóstico + o perfil de sono do seu bebê</div>
+        <div class="incluso"><span class="ck"><svg width="13" height="13" viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5" stroke="#fff" stroke-width="3.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Plano de sono pro perfil dele (berço, sonecas e noite)</div>
+        <div class="incluso"><span class="ck"><svg width="13" height="13" viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5" stroke="#fff" stroke-width="3.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Passo a passo da transição pro berço, sem treino de choro</div>
+        <div class="incluso"><span class="ck"><svg width="13" height="13" viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5" stroke="#fff" stroke-width="3.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Todos os 5 perfis de sono (super bônus)</div>
+        <div class="incluso"><span class="ck"><svg width="13" height="13" viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5" stroke="#fff" stroke-width="3.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Ebook Saltos de Desenvolvimento + Ebook Atividades</div>
+        <div class="incluso"><span class="ck"><svg width="13" height="13" viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5" stroke="#fff" stroke-width="3.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Mini Curso A Rotina do Bebê</div>
+        <div class="incluso"><span class="ck"><svg width="13" height="13" viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5" stroke="#fff" stroke-width="3.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Acesso por 12 meses · 7 dias de garantia incondicional</div>
+      </div>
+      <div class="preco-valor">
+        <div class="de">Por apenas</div>
+        <div class="rs"><small>R$</small>67</div>
+        <div class="vista">à vista</div>
+        <div class="parcelado">ou em até 12x de R$ 6,89</div>
+      </div>
+      <a class="btn btn-lg btn-comprar" href="https://payfast.greenn.com.br/119638/offer/3rjIno?ch_id=140071&b_id_1=119672&b_offer_1=M6CwQc&b_id_2=119627&b_offer_2=UNkLyv&b_id_3=122540&b_offer_3=XwdFeZ">Quero descobrir o sono do meu bebê</a>
+      <p class="micro">🔒 Pagamento 100% seguro · Visa · Mastercard · Pix · Boleto</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== GARANTIA + SUPORTE ===== -->
+<section class="sec-dark-deep pad">
+  <div class="glow-spot" style="width:420px;height:420px;background:#34d399;top:-140px;right:-160px;opacity:.16"></div>
+  <div class="wrap">
+    <div class="garantia-grid">
+      <div class="selo reveal"><span class="d">7</span><span class="t">dias de<br>garantia</span></div>
+      <div>
+        <h2 class="reveal">7 dias de garantia. <span class="hl-pink">Sem burocracia.</span></h2>
+        <p class="reveal">Aplica o método, testa com seu bebê. Se por qualquer motivo não for pra vocês, é só pedir o reembolso dentro de 7 dias direto na Greenn. <strong>Sem perguntas. Sem enrolação. Você não tem nada a perder.</strong></p>
+      </div>
+    </div>
+    <div class="suporte reveal">
+      <h3 class="serif">Ficou com alguma dúvida?</h3>
+      <p>A nossa equipe está no WhatsApp pra te ajudar antes mesmo de você começar.</p>
+      <a class="btn btn-whats" href="https://api.whatsapp.com/send?phone=554184144810&text=Oi!%20Quero%20saber%20mais%20sobre%20o%20Dream%20Baby%20Pocket">💬 Chamar no WhatsApp</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FAQ ===== -->
+<section class="sec-dark pad">
+  <div class="glow-spot" style="width:460px;height:460px;background:#5b2d8f;bottom:-180px;left:-160px;opacity:.5"></div>
+  <div class="wrap center">
+    <h2 class="reveal">Perguntas <span class="hl-pink">Frequentes</span></h2>
+    <div class="faq-list" style="text-align:left">
+      <div class="faq-item reveal"><button class="faq-q">Quanto tempo leva pra ver o meu plano?<span class="seta">+</span></button><div class="faq-a"><p>Em cerca de 30 minutos você responde o quiz, descobre o perfil e já sai com o passo a passo na mão pra aplicar já na próxima soneca.</p></div></div>
+      <div class="faq-item reveal"><button class="faq-q">O Dream Baby Pocket é indicado pra qual idade?<span class="seta">+</span></button><div class="faq-a"><p>Funciona pra bebês de 0 a 12 meses. E se você é gestante, dá pra já chegar preparada antes do bebê nascer.</p></div></div>
+      <div class="faq-item reveal"><button class="faq-q">Por que é sem choro?<span class="seta">+</span></button><div class="faq-a"><p>O método trabalha de forma gradual e respeitosa, sem deixar o bebê chorar. A ideia é uma transição suave, no ritmo dele, pra que se sinta confortável e protegido no berço.</p></div></div>
+      <div class="faq-item reveal"><button class="faq-q">Funciona pro meu bebê?<span class="seta">+</span></button><div class="faq-a"><p>O plano parte do quiz, então é montado a partir das respostas sobre o SEU bebê. E você ainda leva os cinco perfis, pra qualquer fase que vier.</p></div></div>
+      <div class="faq-item reveal"><button class="faq-q">O método também ajuda nas sonecas do dia?<span class="seta">+</span></button><div class="faq-a"><p>Com certeza. Organizar as sonecas facilita tudo. É importante que o bebê descanse bem de dia pra ter um sono noturno de qualidade também.</p></div></div>
+      <div class="faq-item reveal"><button class="faq-q">O curso inclui acompanhamento individual com consultora?<span class="seta">+</span></button><div class="faq-a"><p>Essa é a versão pocket do Dream Baby: direta ao ponto, focada no perfil do seu bebê, com aula objetiva e passo a passo. Ela não inclui o acompanhamento individual (que faz parte da versão completa). Mas, se você sentir necessidade, dá pra contratar à parte.</p></div></div>
+      <div class="faq-item reveal"><button class="faq-q">Qual é a forma de pagamento?<span class="seta">+</span></button><div class="faq-a"><p>Cartão, Pix ou boleto. No cartão você pode parcelar em até 12x. O pagamento é 100% seguro.</p></div></div>
+      <div class="faq-item reveal"><button class="faq-q">Como vou acessar o curso?<span class="seta">+</span></button><div class="faq-a"><p>Após a confirmação do pagamento, o acesso chega no seu e-mail. O conteúdo fica disponível por 12 meses na plataforma.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CTA FINAL ===== -->
+<svg class="curve" viewBox="0 0 1440 70" preserveAspectRatio="none" style="background:#3d1a5b"><path d="M0 70C360 0 1080 0 1440 70V70H0z" fill="#23103f"/></svg>
+<section class="sec-dark-deep pad final center" style="padding-top:56px">
+  <div class="glow-spot" style="width:560px;height:560px;background:#c4147a;top:30%;left:50%;transform:translateX(-50%);opacity:.4"></div>
+  <svg class="deco twinkle" style="top:10%;left:14%" width="18" height="18" viewBox="0 0 24 24"><path d="M12 1l2.6 7.4L22 11l-7.4 2.6L12 21l-2.6-7.4L2 11l7.4-2.6L12 1z" fill="#ffd9bb"/></svg>
+  <svg class="deco twinkle d2" style="top:18%;right:16%" width="14" height="14" viewBox="0 0 24 24"><path d="M12 1l2.6 7.4L22 11l-7.4 2.6L12 21l-2.6-7.4L2 11l7.4-2.6L12 1z" fill="#fff"/></svg>
+  <div class="wrap">
+    <div class="cena-final reveal">
+      <svg class="lua float-slow" viewBox="0 0 100 100"><path d="M68 8a44 44 0 1 0 24 56A36 36 0 0 1 68 8z" fill="#ffd9bb" opacity=".92"/></svg>
+      <img class="fb f1" src="assets/coruja.webp" alt="">
+      <img class="fb f2" src="assets/canguru.webp" alt="">
+      <img class="fb f3" src="assets/coala.webp" alt="">
+    </div>
+    <h2 class="reveal">Seu bebê pode aprender a dormir bem.<br><span class="hl-pink">Nas sonecas e à noite.</span></h2>
+    <p class="sub reveal">Descubra o perfil de sono dele e saia com o plano na mão em cerca de 30 minutos. <strong style="color:#fff;display:block;margin-top:14px">Por R$67, você começa a mudar isso hoje.</strong></p>
+    <div class="reveal" style="margin-top:34px"><a class="btn btn-lg btn-comprar" href="https://payfast.greenn.com.br/119638/offer/3rjIno?ch_id=140071&b_id_1=119672&b_offer_1=M6CwQc&b_id_2=119627&b_offer_2=UNkLyv&b_id_3=122540&b_offer_3=XwdFeZ">Quero descobrir o sono do meu bebê</a></div>
   </div>
 </section>
 
 <footer>
-  <div class="logo">Dream Baby <small>Pocket</small></div>
-  <p>[Razão social] · CNPJ [número] · [e-mail de contato]</p>
-  <p style="margin-top:8px;opacity:.7">Todos os direitos reservados ©</p>
+  <div class="wrap">
+    <div class="logo">Dream Baby Pocket</div>
+    <div class="sub-logo">Um curso do Manual do Recém-Nascido ♥</div>
+    <div class="copy">© Manual do Recém-Nascido | Copyright 2026. Todos os direitos reservados.</div>
+  </div>
 </footer>
 
+<script>
+(function(){
+  var els=document.querySelectorAll('.reveal');
+  if(!('IntersectionObserver' in window)){els.forEach(function(e){e.classList.add('in')});return;}
+  var io=new IntersectionObserver(function(entries){entries.forEach(function(en){if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target)}})},{threshold:.12,rootMargin:'0px 0px -40px 0px'});
+  els.forEach(function(e){io.observe(e)});
+})();
+document.querySelectorAll('.faq-q').forEach(function(btn){
+  btn.addEventListener('click',function(){
+    var item=btn.parentElement,resp=item.querySelector('.faq-a'),aberto=item.classList.contains('aberto');
+    document.querySelectorAll('.faq-item.aberto').forEach(function(o){o.classList.remove('aberto');o.querySelector('.faq-a').style.maxHeight='0'});
+    if(!aberto){item.classList.add('aberto');resp.style.maxHeight=resp.scrollHeight+'px'}
+  });
+});
+</script>
 </body>
 </html>
