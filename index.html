@@ -12,6 +12,13 @@ n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
 n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
 t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
 document,'script','https://connect.facebook.net/en_US/fbevents.js');
+(function(){
+  /* Garante _fbp/_fbc ANTES do fbq init e do 1o evento. Sem isso, PageView/ViewContent disparam antes do fbevents.js gravar o _fbp (race) -> chegam na CAPI com fbp vazio -> match quality baixo -> Meta nao atribui no gerenciador (mesmo bug do Guia da Pega, pagina unica). */
+  function gc(n){var m=document.cookie.match('(^|; )'+n+'=([^;]+)');return m?decodeURIComponent(m[2]):'';}
+  function sc(n,v){try{document.cookie=n+'='+v+'; path=/; max-age=7776000; domain=.manualdorecemnascido.com.br; SameSite=Lax';}catch(e){}}
+  if(!gc('_fbp')){sc('_fbp','fb.1.'+Date.now()+'.'+Math.floor(1e9+Math.random()*9e9));}
+  if(!gc('_fbc')){try{var fbclid=new URLSearchParams(location.search).get('fbclid');if(fbclid){sc('_fbc','fb.1.'+Date.now()+'.'+fbclid);}}catch(e){}}
+})();
 fbq('init', '2199334337151314');
 fbq('init', '2103631056813206');
 (function(){
@@ -507,11 +514,30 @@ document.querySelectorAll('.faq-q').forEach(function(btn){
     if(!aberto){item.classList.add('aberto');resp.style.maxHeight=resp.scrollHeight+'px'}
   });
 });
-/* InitiateCheckout no clique dos botões de compra (browser + CAPI via trackMeta) */
+/* Repasse de UTM/fbclid + fbp/fbc/ua pro checkout Greenn — sem isso a venda chega SEM atribuição (dash classifica como orgânico e o Purchase CAPI fica sem fbc/fbp) */
+(function(){
+  var p=new URLSearchParams(location.search);
+  var keep=/^(utm_|src$|fbclid|gclid|ttclid)/i;
+  var pass=new URLSearchParams();
+  p.forEach(function(v,k){if(keep.test(k))pass.append(k,v);});
+  function gc(n){var m=document.cookie.match('(^|; )'+n+'=([^;]+)');return m?decodeURIComponent(m[2]):'';}
+  var fbp=gc('_fbp');if(fbp)pass.append('fbp',fbp);
+  var fbc=gc('_fbc');if(fbc)pass.append('fbc',fbc);
+  try{pass.append('ua',navigator.userAgent);}catch(e){}
+  var s=pass.toString();if(!s)return;
+  document.querySelectorAll('a.btn-comprar').forEach(function(a){a.href+=(a.href.indexOf('?')>-1?'&':'?')+s;});
+})();
+/* InitiateCheckout no clique — preventDefault + 250ms: navegar direto cancela o beacon do fbq (bug conhecido do Guia, 22/Jun) */
 document.querySelectorAll('a.btn-comprar').forEach(function(a){
-  a.addEventListener('click',function(){
+  a.addEventListener('click',function(e){
+    if(e.ctrlKey||e.metaKey||e.shiftKey||e.button)return;
+    if(a.getAttribute('data-ic'))return;
+    a.setAttribute('data-ic','1');
+    e.preventDefault();
+    var dest=a.href;
     if(window.trackMeta) window.trackMeta('InitiateCheckout',{content_name:'dream-baby-pocket',value:67.0,currency:'BRL'});
     else if(window.fbq) fbq('track','InitiateCheckout',{content_name:'dream-baby-pocket',value:67.0,currency:'BRL'});
+    setTimeout(function(){window.location.href=dest;},250);
   });
 });
 </script>
