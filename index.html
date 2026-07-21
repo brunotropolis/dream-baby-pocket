@@ -117,7 +117,7 @@ h2{font-size:clamp(27px,4.1vw,41px);margin-bottom:16px;color:var(--slate-ink)}
 @keyframes hintBounce{0%,100%{transform:translateY(0);opacity:.45}50%{transform:translateY(7px);opacity:1}}
 .only-mob{display:none}
 @media(max-width:900px){.hero-foto{order:-1}.hero-grid{gap:22px}.scroll-hint{margin-top:18px}}
-@media(max-width:720px){.only-mob{display:inline}.hero{padding:26px 0 22px}.hero-grid{gap:14px}.hero-foto .moldura{width:min(208px,52%);aspect-ratio:1/1;border-width:6px}.hero .lead{margin-top:2px;margin-bottom:16px}.scroll-hint{margin-top:16px}.metodo-h2{font-size:24px}.nowrap-mob{white-space:nowrap}}
+@media(max-width:720px){.only-mob{display:inline}.hero{padding:26px 0 22px}.hero-grid{gap:14px}.hero-foto .moldura{width:min(208px,52%);aspect-ratio:1/1;border-width:6px}.hero .lead{margin-top:2px;margin-bottom:16px}.scroll-hint{margin-top:16px}.metodo-h2{font-size:24px}.nowrap-mob{white-space:nowrap}.btn-comprar{font-size:17px;padding:15px 26px}}
 
 /* DORES */
 .dores-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:46px}
@@ -167,7 +167,9 @@ h2{font-size:clamp(27px,4.1vw,41px);margin-bottom:16px;color:var(--slate-ink)}
 .auth-grid p.bio strong{color:var(--slate-ink);font-weight:700}
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:30px}
 @media(max-width:640px){.stats{grid-template-columns:repeat(2,1fr)}}
-.stat{background:#fff;border-radius:16px;padding:18px 12px;text-align:center;box-shadow:var(--sombra-card)}
+.stat{background:#fff;border-radius:16px;padding:16px 12px;text-align:center;box-shadow:var(--sombra-card)}
+.stat .st-ico{color:var(--terra-deep);margin-bottom:7px;line-height:0}
+.stat .st-ico svg{width:24px;height:24px;margin:0 auto}
 .stat .n{font-family:'Poppins',sans-serif;font-weight:700;font-size:23px;color:var(--terra-deep)}
 .stat .l{font-size:12px;color:var(--ink-soft);font-weight:600;margin-top:3px;text-transform:uppercase;letter-spacing:.05em}
 
@@ -218,7 +220,7 @@ h2{font-size:clamp(27px,4.1vw,41px);margin-bottom:16px;color:var(--slate-ink)}
 .preco-box{max-width:600px;margin:0 auto;background:#fff;border-radius:30px;padding:clamp(32px,5vw,50px);text-align:center;box-shadow:0 30px 70px rgba(30,45,40,.28);position:relative}
 .preco-box .selo-mini{position:absolute;top:-30px;left:50%;transform:translateX(-50%);background:var(--mustard);color:#6b4a08;font-family:'Poppins',sans-serif;font-weight:600;font-size:13px;letter-spacing:.08em;text-transform:uppercase;padding:9px 22px;border-radius:100px;box-shadow:0 10px 24px rgba(233,180,76,.45);white-space:nowrap}
 .inclusos{margin:26px 0 6px;display:grid;gap:11px;text-align:left}
-.incluso{display:flex;gap:12px;align-items:flex-start;font-size:15.5px;line-height:1.45;color:var(--ink);font-weight:600}
+.incluso{display:flex;gap:12px;align-items:flex-start;font-size:15px;line-height:1.4;color:var(--ink);font-weight:600;background:var(--cream-soft);border:1px solid rgba(197,107,65,.12);border-radius:12px;padding:11px 14px}
 .incluso .ck{min-width:23px;height:23px;border-radius:50%;background:var(--sage-deep);display:flex;align-items:center;justify-content:center}
 .preco-valor{margin:26px 0 4px}
 .preco-valor .de{font-size:16px;color:var(--ink-soft);font-weight:600}
@@ -258,11 +260,7 @@ h2{font-size:clamp(27px,4.1vw,41px);margin-bottom:16px;color:var(--slate-ink)}
 .final .cena .f1{left:4%;width:70px}.final .cena .f2{left:50%;transform:translateX(-50%);width:112px}.final .cena .f3{right:4%;width:70px}
 footer{background:var(--slate-ink);padding:44px 0;text-align:center}
 footer .logo{font-family:'Poppins',sans-serif;font-weight:700;font-size:22px;color:#fff}
-footer .sub-logo{font-size:14px;color:rgba(255,255,255,.6);margin:8px 0 4px}
-footer .social{display:flex;justify-content:center;gap:14px;margin:16px 0 18px}
-footer .social a{width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;transition:background .2s ease,transform .2s ease}
-footer .social a:hover{background:rgba(255,255,255,.22);transform:translateY(-2px)}
-footer .social svg{width:21px;height:21px}
+footer .sub-logo{font-size:14px;color:rgba(255,255,255,.6);margin:8px 0 16px}
 footer .copy{font-size:12.5px;color:rgba(255,255,255,.4)}
 
 .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
@@ -352,10 +350,10 @@ footer .copy{font-size:12.5px;color:rgba(255,255,255,.4)}
         <p class="bio reveal">Depois de orientar <strong>mais de 21 mil alunas</strong>, a Day percebeu que não existe receita única pra sono de bebê. Cada perfil tem um padrão diferente, uma dor diferente, e precisa de uma abordagem diferente.</p>
         <p class="bio reveal">Por isso o Dream Baby foi construído perfil por perfil. Pra ela, <strong>sono é necessidade básica, assim como se alimentar</strong>. E deixar chorar não é o caminho: com carinho e presença, você guia o bebê pra uma boa qualidade de sono desde cedo.</p>
         <div class="stats">
-          <div class="stat reveal"><div class="n">+21 mil</div><div class="l">alunas</div></div>
-          <div class="stat reveal"><div class="n">+778k</div><div class="l">YouTube</div></div>
-          <div class="stat reveal"><div class="n">+615k</div><div class="l">Instagram</div></div>
-          <div class="stat reveal"><div class="n">+650k</div><div class="l">TikTok</div></div>
+          <div class="stat reveal"><div class="st-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M16 20v-1.5a3.5 3.5 0 0 0-3.5-3.5h-5A3.5 3.5 0 0 0 4 18.5V20"/><circle cx="9.5" cy="8" r="3.2"/><path d="M20 20v-1.5a3.5 3.5 0 0 0-2.6-3.4M15.5 4.8a3.2 3.2 0 0 1 0 6.3"/></svg></div><div class="n">+21 mil</div><div class="l">alunas</div></div>
+          <div class="stat reveal"><div class="st-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="4.5"/><path d="M10.2 8.7l5 3.3-5 3.3z" fill="currentColor" stroke="none"/></svg></div><div class="n">+807k</div><div class="l">YouTube</div></div>
+          <div class="stat reveal"><div class="st-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"/></svg></div><div class="n">+642k</div><div class="l">Instagram</div></div>
+          <div class="stat reveal"><div class="st-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M13.5 4v10.2a3.4 3.4 0 1 1-3.4-3.4"/><path d="M13.5 4c.5 2.1 1.9 3.5 4 3.8"/></svg></div><div class="n">+660k</div><div class="l">TikTok</div></div>
         </div>
       </div>
     </div>
@@ -466,6 +464,7 @@ footer .copy{font-size:12.5px;color:rgba(255,255,255,.4)}
       <div class="faq-item reveal"><button class="faq-q">O método também ajuda nas sonecas do dia?<span class="seta">+</span></button><div class="faq-a"><p>Com certeza. Organizar as sonecas facilita tudo. É importante que o bebê descanse bem de dia pra ter um sono noturno de qualidade também.</p></div></div>
       <div class="faq-item reveal"><button class="faq-q">O curso inclui acompanhamento individual com consultora?<span class="seta">+</span></button><div class="faq-a"><p>Essa é a versão pocket do Dream Baby: direta ao ponto, focada no perfil do seu bebê, com aula objetiva e passo a passo. Ela não inclui o acompanhamento individual (que faz parte da versão completa). Mas, se você sentir necessidade, dá pra contratar à parte.</p></div></div>
       <div class="faq-item reveal"><button class="faq-q">Qual é a forma de pagamento?<span class="seta">+</span></button><div class="faq-a"><p>Cartão, Pix ou boleto. No cartão você pode parcelar em até 12x. O pagamento é 100% seguro.</p></div></div>
+      <div class="faq-item reveal"><button class="faq-q">Como funciona a garantia?<span class="seta">+</span></button><div class="faq-a"><p>Você tem 7 dias de garantia incondicional. Se por qualquer motivo não se adaptar, é só pedir o reembolso direto na Greenn dentro do prazo. Sem perguntas e sem burocracia.</p></div></div>
       <div class="faq-item reveal"><button class="faq-q">Como vou acessar o curso?<span class="seta">+</span></button><div class="faq-a"><p>Após a confirmação do pagamento, o acesso chega no seu e-mail. O conteúdo fica disponível por 12 meses na plataforma.</p></div></div>
     </div>
   </div>
@@ -490,11 +489,6 @@ footer .copy{font-size:12.5px;color:rgba(255,255,255,.4)}
   <div class="wrap">
     <div class="logo">Dream Baby Pocket</div>
     <div class="sub-logo">Um curso do Manual do Recém-Nascido ♥</div>
-    <div class="social">
-      <a href="https://instagram.com/manualdorecemnascido" aria-label="Instagram" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.4" cy="6.6" r="1.1" fill="#fff" stroke="none"/></svg></a>
-      <a href="https://youtube.com/@manualdorecemnascido" aria-label="YouTube" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="4.5"/><path d="M10.2 8.7l5 3.3-5 3.3z" fill="#fff" stroke="none"/></svg></a>
-      <a href="https://tiktok.com/@manualdorecemnascido" aria-label="TikTok" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13.5 4v10.2a3.4 3.4 0 1 1-3.4-3.4"/><path d="M13.5 4c.5 2.1 1.9 3.5 4 3.8"/></svg></a>
-    </div>
     <div class="copy">© Manual do Recém-Nascido | Copyright 2026. Todos os direitos reservados.</div>
   </div>
 </footer>
