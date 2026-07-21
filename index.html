@@ -524,6 +524,12 @@ document.querySelectorAll('.faq-q').forEach(function(btn){
   var fbp=gc('_fbp');if(fbp)pass.append('fbp',fbp);
   var fbc=gc('_fbc');if(fbc)pass.append('fbc',fbc);
   try{pass.append('ua',navigator.userAgent);}catch(e){}
+  /* Fallback: anuncio Meta sem URL parameters (url_tags) — veio com fbclid mas sem utm -> marca como trafego do funil pra nao cair como organico no dash/Greenn */
+  if(!pass.get('utm_campaign')&&p.get('fbclid')){
+    pass.append('utm_source','FB');
+    pass.append('utm_medium','sem-url-tags');
+    pass.append('utm_campaign','[TRAFEGO][DREAM POCKET] fallback');
+  }
   var s=pass.toString();if(!s)return;
   document.querySelectorAll('a.btn-comprar').forEach(function(a){a.href+=(a.href.indexOf('?')>-1?'&':'?')+s;});
 })();
