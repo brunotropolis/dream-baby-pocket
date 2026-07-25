@@ -572,5 +572,21 @@ document.querySelectorAll('a.btn-comprar').forEach(function(a){
   });
 });
 </script>
+<!-- tt-events -->
+<script>
+(function(){
+  function gp(n){try{return new URLSearchParams(location.search).get(n)||''}catch(e){return''}}
+  var TT=gp('ttclid');
+  try{ if(TT){sessionStorage.setItem('ttclid',TT);} else {TT=sessionStorage.getItem('ttclid')||'';} }catch(e){}
+  var buys=document.querySelectorAll('a.btn-comprar');
+  var PROD={contents:[{content_id:'119638',content_type:'product',content_name:'Dream Baby Pocket'}],value:67,currency:'BRL'};
+  function fire(ev){ try{ if(window.ttq){ ttq.track(ev,PROD); } }catch(e){} }
+  if(buys.length){ if(window.ttq){fire('ViewContent');} else {window.addEventListener('load',function(){fire('ViewContent');});} }
+  buys.forEach(function(a){
+    if(TT){ var h=a.getAttribute('href')||''; if(h.charAt(0)!=='#' && h.indexOf('ttclid=')<0){ a.href=h+(h.indexOf('?')>-1?'&':'?')+'ttclid='+encodeURIComponent(TT); } }
+    a.addEventListener('click',function(){ fire('InitiateCheckout'); });
+  });
+})();
+</script>
 </body>
 </html>
