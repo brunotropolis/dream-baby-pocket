@@ -48,6 +48,24 @@ fbq('init', '2103631056813206');
 })();
 </script>
 <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=2199334337151314&ev=PageView&noscript=1"/></noscript>
+<!-- OpenAI / ChatGPT Ads pixel (oaiq). Pixel ID sai em ads.openai.com > Conversions.
+     Enquanto OAI_PIXEL estiver vazio o SDK nem carrega (zero request inutil, zero peso no LCP).
+     O SDK captura o ?oppref= da URL (click id da OpenAI) e guarda no cookie __oppref sozinho.
+     amount vai em CENTAVOS (6700 = R$ 67,00) — mandar 67 reporta receita 100x menor. -->
+<script>
+(function(){
+  var OAI_PIXEL='';  /* <<< COLE O PIXEL ID AQUI */
+  if(!OAI_PIXEL) return;
+  var BOT=navigator.webdriver===true||/bot|crawl|spider|slurp|facebookexternalhit|facebookcatalog|whatsapp|telegram|preview|headless|lighthouse|pagespeed/i.test(navigator.userAgent||'');
+  if(BOT) return;
+  (function(w,d,s,u){if(w.oaiq)return;var q=function(){q.q.push(arguments)};q.q=[];w.oaiq=q;var js=d.createElement(s);js.async=true;js.src=u;var f=d.getElementsByTagName(s)[0];f.parentNode.insertBefore(js,f)})(window,document,'script','https://bzrcdn.openai.com/sdk/oaiq.min.js');
+  var dbg=false;try{dbg=new URLSearchParams(location.search).get('oaidebug')==='1'}catch(e){}
+  oaiq('init',{pixelId:OAI_PIXEL,debug:dbg});
+  oaiq('measure','page_viewed',{type:'contents'});
+  oaiq('measure','contents_viewed',{type:'contents',amount:6700,currency:'BRL',
+    contents:[{id:'119638',name:'Dream Baby Pocket',content_type:'product',quantity:1}]});
+})();
+</script>
 <!-- Microsoft Clarity (conta Dream Baby — mesmo do perfis) -->
 <script type="text/javascript">
 (function(c,l,a,r,i,t,y){
@@ -563,7 +581,7 @@ document.querySelectorAll('.faq-q').forEach(function(btn){
 /* Repasse de UTM/fbclid + fbp/fbc/ua pro checkout Greenn — sem isso a venda chega SEM atribuição (dash classifica como orgânico e o Purchase CAPI fica sem fbc/fbp) */
 (function(){
   var p=new URLSearchParams(location.search);
-  var keep=/^(utm_|src$|fbclid|gclid|ttclid)/i;
+  var keep=/^(utm_|src$|fbclid|gclid|ttclid|oppref)/i;
   var pass=new URLSearchParams();
   p.forEach(function(v,k){if(keep.test(k))pass.append(k,v);});
   function gc(n){var m=document.cookie.match('(^|; )'+n+'=([^;]+)');return m?decodeURIComponent(m[2]):'';}
@@ -589,6 +607,9 @@ document.querySelectorAll('a.btn-comprar').forEach(function(a){
     var dest=a.href;
     if(window.trackMeta) window.trackMeta('InitiateCheckout',{content_name:'dream-baby-pocket',value:67.0,currency:'BRL'});
     else if(window.fbq) fbq('track','InitiateCheckout',{content_name:'dream-baby-pocket',value:67.0,currency:'BRL'});
+    /* ChatGPT Ads: amount em CENTAVOS */
+    try{ if(window.oaiq) oaiq('measure','checkout_started',{type:'contents',amount:6700,currency:'BRL',
+      contents:[{id:'119638',name:'Dream Baby Pocket',content_type:'product',quantity:1}]}); }catch(e){}
     setTimeout(function(){window.location.href=dest;},250);
   });
 });
