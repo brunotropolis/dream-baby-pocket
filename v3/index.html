@@ -588,6 +588,8 @@ document.querySelectorAll('.faq-q').forEach(function(btn){
     pass.append('utm_medium','sem-url-tags');
     pass.append('utm_campaign','[TRAFEGO][DREAM POCKET] fallback');
   }
+  /* MARCADOR DA VARIANTE v3 (split A/B): carimba a versao no utm_content -> a venda e atribuida a /v3 no dash */
+  { var _uc=pass.get('utm_content')||''; pass.set('utm_content', _uc?_uc+'|v3':'v3'); }
   var s=pass.toString();if(!s)return;
   document.querySelectorAll('a.btn-comprar').forEach(function(a){a.href+=(a.href.indexOf('?')>-1?'&':'?')+s;});
 })();
