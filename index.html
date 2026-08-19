@@ -592,6 +592,8 @@ document.querySelectorAll('.faq-q').forEach(function(btn){
   var s=pass.toString();if(!s)return;
   document.querySelectorAll('a.btn-comprar').forEach(function(a){a.href+=(a.href.indexOf('?')>-1?'&':'?')+s;});
 })();
+/* DEAD-CLICK FIX (19/Ago): a setinha "Entenda o sono do seu bebe" (.scroll-hint) era um div morto (aria-hidden) — a mae clicava e nada acontecia (11% de dead-click). Agora ROLA pra proxima secao. */
+document.querySelectorAll('.scroll-hint').forEach(function(el){el.style.cursor='pointer';el.removeAttribute('aria-hidden');el.setAttribute('role','button');el.addEventListener('click',function(){var h=el.closest('section')||document.querySelector('.hero');var next=h&&h.nextElementSibling;if(next&&next.scrollIntoView)next.scrollIntoView({behavior:'smooth',block:'start'});else window.scrollBy({top:Math.round(window.innerHeight*0.85),behavior:'smooth'});});});
 /* InitiateCheckout no clique — preventDefault + 250ms: navegar direto cancela o beacon do fbq (bug conhecido do Guia, 22/Jun) */
 document.querySelectorAll('a.btn-comprar').forEach(function(a){
   a.addEventListener('click',function(e){
