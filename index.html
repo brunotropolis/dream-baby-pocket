@@ -603,8 +603,8 @@ document.querySelectorAll('a.btn-comprar').forEach(function(a){
     e.preventDefault();
     var dest=a.href;
     if(window.trackMeta) window.trackMeta('InitiateCheckout',{content_name:'dream-baby-pocket',value:67.0,currency:'BRL',versao:'base'});
-    try{ navigator.sendBeacon('https://n8n-n8n.xktssy.easypanel.host/webhook/ab-ic', new Blob(['base'],{type:'text/plain'})); }catch(_){}  /* conta ida-pro-checkout por variante (A/B) */
     else if(window.fbq) fbq('track','InitiateCheckout',{content_name:'dream-baby-pocket',value:67.0,currency:'BRL'});
+    try{ navigator.sendBeacon('https://n8n-n8n.xktssy.easypanel.host/webhook/ab-ic', new Blob(['base'],{type:'text/plain'})); }catch(_){}  /* conta ida-pro-checkout por variante (A/B) */
     /* ChatGPT Ads: amount em CENTAVOS */
     try{ if(window.oaiq) oaiq('measure','checkout_started',{type:'contents',amount:6700,currency:'BRL',
       contents:[{id:'119638',name:'Dream Baby Pocket',content_type:'product',quantity:1}]}); }catch(e){}
