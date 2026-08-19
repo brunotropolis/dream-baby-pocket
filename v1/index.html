@@ -3,12 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="robots" content="noindex"><!-- variante A/B v3 (headline) — nao indexar -->
-<link rel="preload" as="image" href="/assets/bebe-dormindo.webp" fetchpriority="high">
+<link rel="preload" as="image" href="assets/bebe-dormindo.webp" fetchpriority="high">
 <title>Dream Baby Pocket — Descubra o sono do seu bebê</title>
-<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
-<link rel="icon" href="/assets/favicon-32.png" sizes="32x32" type="image/png">
-<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <meta name="theme-color" content="#6E9488">
 <meta name="description" content="Responda o quiz, descubra o perfil de sono do seu bebê e saia com um plano pra ele dormir bem, na soneca e à noite, em cerca de 30 minutos. Sem treino de choro.">
 <!-- Meta Pixel (mesmo do perfis: 2199334337151314 browser+CAPI, 2103631056813206 browser) -->
@@ -312,9 +311,6 @@ footer .copy{font-size:12.5px;color:rgba(255,255,255,.4)}
 .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
 .reveal.in{opacity:1;transform:translateY(0)}
 @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}.float-slow,.float-slower,.spin-slow,.scroll-hint svg{animation:none}}
-/* variante v3 (A/B) — UNICA mudanca: headline do hero em caixa normal, cabe no mobile sem cortar palavra */
-.hero h1.hero-h1-v3{text-transform:none;letter-spacing:-.01em;overflow-wrap:normal;hyphens:none}
-@media(max-width:720px){.hero h1.hero-h1-v3{font-size:24px;line-height:1.2;max-width:22ch}}
 </style>
 <!-- TikTok Pixel -->
 <script>
@@ -337,7 +333,7 @@ footer .copy{font-size:12.5px;color:rgba(255,255,255,.4)}
   <div class="wrap">
     <div class="hero-grid">
       <div>
-        <h1 class="reveal hero-h1-v3">Saiba como fazer seu bebê dormir bem e no berço. <span class="hl-terra">Sem choro.</span></h1>
+        <h1 class="reveal">Saiba hoje por que seu bebê <span class="hl-terra">não dorme bem</span></h1>
         <p class="lead reveal">Responda um quiz rápido, descubra o perfil de sono do seu bebê e receba um plano pra ele ter um <b>sono de qualidade</b>, na soneca e à noite.</p>
         <div class="pill reveal"><span class="pi">⏱</span><span class="pt">Com o plano na mão<br class="only-mob"> em cerca de <b>30 minutos</b></span></div>
         <div class="scroll-hint reveal" aria-hidden="true">
@@ -348,7 +344,7 @@ footer .copy{font-size:12.5px;color:rgba(255,255,255,.4)}
       <div class="hero-foto reveal">
         <div class="blob"></div>
         <svg class="dots spin-slow" viewBox="0 0 100 100"><g fill="#E08A5F"><circle cx="10" cy="50" r="3"/><circle cx="50" cy="10" r="3"/><circle cx="90" cy="50" r="3"/><circle cx="50" cy="90" r="3"/><circle cx="22" cy="22" r="2.4"/><circle cx="78" cy="22" r="2.4"/><circle cx="78" cy="78" r="2.4"/><circle cx="22" cy="78" r="2.4"/></g></svg>
-        <div class="moldura"><img src="/assets/bebe-dormindo.webp" alt="Bebê dormindo tranquilo" width="799" height="1200" fetchpriority="high" decoding="async"></div>
+        <div class="moldura"><img src="assets/bebe-dormindo.webp" alt="Bebê dormindo tranquilo" width="799" height="1200" fetchpriority="high" decoding="async"></div>
       </div>
     </div>
   </div>
@@ -398,7 +394,7 @@ footer .copy{font-size:12.5px;color:rgba(255,255,255,.4)}
   <div class="wrap">
     <div class="auth-grid">
       <div class="auth-foto reveal">
-        <div class="anel"><img src="/assets/day-circle.webp" alt="Dayane Dos Anjos, consultora de sono" loading="lazy" decoding="async"></div>
+        <div class="anel"><img src="assets/day-circle.webp" alt="Dayane Dos Anjos, consultora de sono" loading="lazy" decoding="async"></div>
         <svg class="spark" style="top:2%;right:6%" width="24" height="24" viewBox="0 0 24 24"><path d="M12 2c.8 4.6 2.4 6.2 7 7-4.6.8-6.2 2.4-7 7-.8-4.6-2.4-6.2-7-7 4.6-.8 6.2-2.4 7-7z" fill="#E9B44C"/></svg>
       </div>
       <div>
@@ -459,11 +455,11 @@ footer .copy{font-size:12.5px;color:rgba(255,255,255,.4)}
       <h3>Descobriu um perfil hoje. Mas você <span class="hl-terra">leva os cinco</span>.</h3>
       <p>Bebê cresce, o comportamento muda, e às vezes o perfil de sono muda junto. Por isso você recebe <strong>todos os 5 perfis do Dream Baby: Canguru, Coala, Coruja, Leão e Suricato</strong>. Se amanhã o sono do seu bebê mudar, você já sabe o que fazer. Sem comprar nada de novo.</p>
       <div class="perfis-row">
-        <div class="pf"><img src="/assets/coala.webp" alt="Perfil Coala" loading="lazy" decoding="async"><span>Coala</span></div>
-        <div class="pf"><img src="/assets/coruja.webp" alt="Perfil Coruja" loading="lazy" decoding="async"><span>Coruja</span></div>
-        <div class="pf big"><img src="/assets/canguru.webp" alt="Perfil Canguru" loading="lazy" decoding="async"><span>Canguru</span></div>
-        <div class="pf"><img src="/assets/leao.webp" alt="Perfil Leão" loading="lazy" decoding="async"><span>Leão</span></div>
-        <div class="pf"><img src="/assets/suricato.webp" alt="Perfil Suricato" loading="lazy" decoding="async"><span>Suricato</span></div>
+        <div class="pf"><img src="assets/coala.webp" alt="Perfil Coala" loading="lazy" decoding="async"><span>Coala</span></div>
+        <div class="pf"><img src="assets/coruja.webp" alt="Perfil Coruja" loading="lazy" decoding="async"><span>Coruja</span></div>
+        <div class="pf big"><img src="assets/canguru.webp" alt="Perfil Canguru" loading="lazy" decoding="async"><span>Canguru</span></div>
+        <div class="pf"><img src="assets/leao.webp" alt="Perfil Leão" loading="lazy" decoding="async"><span>Leão</span></div>
+        <div class="pf"><img src="assets/suricato.webp" alt="Perfil Suricato" loading="lazy" decoding="async"><span>Suricato</span></div>
       </div>
     </div>
   </div>
@@ -540,9 +536,9 @@ footer .copy{font-size:12.5px;color:rgba(255,255,255,.4)}
 <section class="sec-deep pad final center" style="padding-top:48px">
   <div class="wrap">
     <div class="cena reveal">
-      <img class="fb f1" src="/assets/coruja.webp" alt="" loading="lazy" decoding="async">
-      <img class="fb f2" src="/assets/canguru.webp" alt="" loading="lazy" decoding="async">
-      <img class="fb f3" src="/assets/coala.webp" alt="" loading="lazy" decoding="async">
+      <img class="fb f1" src="assets/coruja.webp" alt="" loading="lazy" decoding="async">
+      <img class="fb f2" src="assets/canguru.webp" alt="" loading="lazy" decoding="async">
+      <img class="fb f3" src="assets/coala.webp" alt="" loading="lazy" decoding="async">
     </div>
     <h2 class="reveal">Seu bebê pode aprender a dormir bem.<br>Nas sonecas e à noite.</h2>
     <p class="sub reveal">Descubra o perfil de sono dele e saia com o plano na mão em cerca de 30 minutos. <strong style="color:#fff;display:block;margin-top:12px">Por R$67, você começa a mudar isso hoje.</strong></p>
@@ -588,7 +584,6 @@ document.querySelectorAll('.faq-q').forEach(function(btn){
     pass.append('utm_medium','sem-url-tags');
     pass.append('utm_campaign','[TRAFEGO][DREAM POCKET] fallback');
   }
-  /* PRINCIPAL/BASE (era a v3, promovida a principal em 19/Ago): NAO carimba versao no utm_content -> a venda conta como base no A/B. */
   var s=pass.toString();if(!s)return;
   document.querySelectorAll('a.btn-comprar').forEach(function(a){a.href+=(a.href.indexOf('?')>-1?'&':'?')+s;});
 })();
@@ -600,7 +595,7 @@ document.querySelectorAll('a.btn-comprar').forEach(function(a){
     a.setAttribute('data-ic','1');
     e.preventDefault();
     var dest=a.href;
-    if(window.trackMeta) window.trackMeta('InitiateCheckout',{content_name:'dream-baby-pocket',value:67.0,currency:'BRL',versao:'base'});
+    if(window.trackMeta) window.trackMeta('InitiateCheckout',{content_name:'dream-baby-pocket',value:67.0,currency:'BRL'});
     else if(window.fbq) fbq('track','InitiateCheckout',{content_name:'dream-baby-pocket',value:67.0,currency:'BRL'});
     /* ChatGPT Ads: amount em CENTAVOS */
     try{ if(window.oaiq) oaiq('measure','checkout_started',{type:'contents',amount:6700,currency:'BRL',
