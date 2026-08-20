@@ -485,7 +485,7 @@ footer .copy{font-size:12.5px;color:rgba(255,255,255,.4)}
         <div class="incluso"><span class="ck"><svg width="12" height="12" viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5" stroke="#fff" stroke-width="3.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Ebook Saltos + Ebook Atividades + Mini Curso Rotina</div>
         <div class="incluso"><span class="ck"><svg width="12" height="12" viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5" stroke="#fff" stroke-width="3.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Acesso por 12 meses · 7 dias de garantia incondicional</div>
       </div>
-      <div class="preco-valor">
+      <div class="preco-valor" data-sec="oferta">
         <div class="de">Por apenas</div>
         <div class="rs"><small>R$</small>67</div>
         <div class="vista">à vista</div>
@@ -626,6 +626,18 @@ document.querySelectorAll('a.btn-comprar').forEach(function(a){
     if(TT){ var h=a.getAttribute('href')||''; if(h.charAt(0)!=='#' && h.indexOf('ttclid=')<0){ a.href=h+(h.indexOf('?')>-1?'&':'?')+'ttclid='+encodeURIComponent(TT); } }
     a.addEventListener('click',function(){ fire('InitiateCheckout'); });
   });
+})();
+</script>
+<!-- funil-secao (Sherlock): abriu -> viu oferta -> viu botao. O clique (ic) ja e disparado no beacon de checkout acima. -->
+<script>
+(function(){
+  var U='https://n8n-n8n.xktssy.easypanel.host/webhook/ab-ic', PAG='pocket', VER='base';
+  function hit(ev){ try{ navigator.sendBeacon(U, new Blob([JSON.stringify({pagina:PAG,versao:VER,evento:ev})],{type:'text/plain'})); }catch(e){} }
+  var done={}; function once(ev){ if(done[ev])return; done[ev]=1; hit(ev); }
+  once('pageview');
+  function watch(sel,ev){ var el=document.querySelector(sel); if(!el)return; try{ var io=new IntersectionObserver(function(es){ for(var i=0;i<es.length;i++){ if(es[i].isIntersecting){ once(ev); io.disconnect(); return; } } },{threshold:0.25}); io.observe(el); }catch(e){ once(ev); } }
+  watch('[data-sec="oferta"]','viu_oferta');
+  watch('.btn-comprar, a[href*="payfast"], a[href*="checkout"]','viu_botao');
 })();
 </script>
 </body>
