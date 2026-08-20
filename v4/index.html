@@ -506,7 +506,7 @@ footer .copy{font-size:12.5px;color:rgba(255,255,255,.4)}
         <div class="incluso"><span class="ck"><svg width="12" height="12" viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5" stroke="#fff" stroke-width="3.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Ebook Saltos + Ebook Atividades + Mini Curso Rotina</div>
         <div class="incluso"><span class="ck"><svg width="12" height="12" viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5" stroke="#fff" stroke-width="3.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Acesso por 12 meses · 7 dias de garantia incondicional</div>
       </div>
-      <div class="preco-valor">
+      <div class="preco-valor" data-sec="oferta">
         <div class="de">Por apenas</div>
         <div class="rs"><small>R$</small>67</div>
         <div class="vista">à vista</div>
@@ -626,7 +626,7 @@ document.querySelectorAll('a.btn-comprar').forEach(function(a){
     var dest=a.href;
     if(window.trackMeta) window.trackMeta('InitiateCheckout',{content_name:'dream-baby-pocket',value:67.0,currency:'BRL',versao:'v4'});
     else if(window.fbq) fbq('track','InitiateCheckout',{content_name:'dream-baby-pocket',value:67.0,currency:'BRL',versao:'v4'});
-    try{ navigator.sendBeacon('https://n8n-n8n.xktssy.easypanel.host/webhook/ab-ic', new Blob(['v4'],{type:'text/plain'})); }catch(_){}  /* conta ida-pro-checkout por variante (A/B) */
+    /* ida-pro-checkout (ic) contada pelo beacon universal de funil-secao no fim do body */
     /* ChatGPT Ads: amount em CENTAVOS */
     try{ if(window.oaiq) oaiq('measure','checkout_started',{type:'contents',amount:6700,currency:'BRL',
       contents:[{id:'119638',name:'Dream Baby Pocket',content_type:'product',quantity:1}]}); }catch(e){}
@@ -648,6 +648,23 @@ document.querySelectorAll('a.btn-comprar').forEach(function(a){
     if(TT){ var h=a.getAttribute('href')||''; if(h.charAt(0)!=='#' && h.indexOf('ttclid=')<0){ a.href=h+(h.indexOf('?')>-1?'&':'?')+'ttclid='+encodeURIComponent(TT); } }
     a.addEventListener('click',function(){ fire('InitiateCheckout'); });
   });
+})();
+</script>
+<!-- funil-secao (Sherlock) — universal, auto-detecta pagina/versao. abriu->viu oferta->viu botao->ic -->
+<script>
+(function(){
+  var U='https://n8n-n8n.xktssy.easypanel.host/webhook/ab-ic', h=location.hostname, p=location.pathname;
+  var m=p.match(/(canguru|coala|coruja|leao|suricato)/);
+  var PAG=/dbpocket/.test(h)?'pocket':/tdapocket/.test(h)?'guia':/perfis/.test(h)?(m?'quiz-'+m[1]:'quiz'):(h.split('.')[0]||'pagina');
+  var vm=p.match(/\/v(\d+)(?:\/|$)/); var VER=vm?'v'+vm[1]:'base';
+  var BTN='.btn-comprar, a[href*="payfast"], a[href*="checkout"], a[href*="greenn"]';
+  function hit(ev){ try{ navigator.sendBeacon(U, new Blob([JSON.stringify({pagina:PAG,versao:VER,evento:ev})],{type:'text/plain'})); }catch(e){} }
+  var done={}; function once(ev){ if(done[ev])return; done[ev]=1; hit(ev); }
+  once('pageview');
+  function watch(sel,ev){ var el=document.querySelector(sel); if(!el)return; try{ var io=new IntersectionObserver(function(es){ for(var i=0;i<es.length;i++){ if(es[i].isIntersecting){ once(ev); io.disconnect(); return; } } },{threshold:0.25}); io.observe(el); }catch(e){ once(ev); } }
+  watch('[data-sec="oferta"]','viu_oferta');
+  watch(BTN,'viu_botao');
+  document.addEventListener('click',function(e){ var t=e.target.closest(BTN); if(t) once('ic'); },true);
 })();
 </script>
 </body>
