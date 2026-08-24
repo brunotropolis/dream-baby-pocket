@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="preload" as="image" href="../assets/bebe-dormindo.webp" fetchpriority="high">
-<title>Dream Baby Pocket — Seu bebê dormindo no berço, sem treino de choro</title>
+<title>Seu bebê dormindo no berço, sem treino de choro | Dream Baby Pocket</title>
 <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="../assets/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
@@ -124,30 +124,42 @@ section{position:relative;overflow:hidden}
 .sec{padding:52px 0}
 .sec-sage{background:linear-gradient(170deg,var(--sage) 0%,var(--sage-soft) 100%)}
 .sec-cream{background:var(--cream-soft)}
+.sec-sand{background:linear-gradient(170deg,#EFE0C6 0%,#E7D3B4 100%)}
 .sec-deep{background:linear-gradient(160deg,var(--sage-deep) 0%,var(--slate) 130%)}
 .sec h2{text-align:center;font-size:clamp(24px,4.6vw,34px);color:var(--slate-ink);margin-bottom:8px}
 .sec-deep h2{color:#fff}
 .sec .intro{text-align:center;color:var(--ink-soft);max-width:34ch;margin:0 auto 30px;font-size:16px}
 .sec-deep .intro{color:rgba(255,255,255,.9)}
 
-/* PASSO A PASSO */
-.steps{max-width:520px;margin:0 auto;position:relative}
-.step{display:flex;gap:16px;align-items:flex-start;position:relative;padding-bottom:22px}
-.step:last-child{padding-bottom:0}
-.step::before{content:"";position:absolute;left:19px;top:42px;bottom:-2px;width:2px;background:repeating-linear-gradient(var(--sage-deep) 0 5px,transparent 5px 11px);opacity:.5}
-.step:last-child::before{display:none}
-.step .n{flex:none;width:40px;height:40px;border-radius:50%;background:var(--sage-deep);color:#fff;font-family:'Poppins',sans-serif;font-weight:700;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 14px rgba(110,148,136,.4);z-index:1}
-.step .txt{padding-top:6px}
-.step .txt b{font-family:'Poppins',sans-serif;color:var(--slate-ink);font-weight:600;display:block;margin-bottom:2px}
-.step .txt span{color:var(--ink-soft);font-size:15.5px}
+/* PASSO A PASSO (cards com icone) */
+.steps{max-width:560px;margin:0 auto;display:grid;gap:14px}
+.stepcard{display:flex;align-items:center;gap:16px;background:#fff;border-radius:18px;padding:17px 18px;box-shadow:0 12px 30px rgba(55,80,74,.16);position:relative;border:1px solid rgba(110,148,136,.18)}
+.stepcard .num{position:absolute;top:-9px;left:-9px;width:27px;height:27px;border-radius:50%;background:var(--terra-deep);color:#fff;font-family:'Poppins',sans-serif;font-weight:700;font-size:13px;display:flex;align-items:center;justify-content:center;box-shadow:0 5px 12px rgba(197,107,65,.45);z-index:2}
+.stepcard .ico{flex:none;width:56px;height:56px;border-radius:16px;background:linear-gradient(150deg,var(--sage-soft),#fff);display:flex;align-items:center;justify-content:center;box-shadow:inset 0 0 0 1px rgba(110,148,136,.3)}
+.stepcard .ico svg{width:28px;height:28px;stroke:var(--sage-deep);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.stepcard .txt b{font-family:'Poppins',sans-serif;color:var(--slate-ink);font-weight:600;display:block;margin-bottom:2px;font-size:16.5px}
+.stepcard .txt span{color:var(--ink-soft);font-size:15px;line-height:1.4}
+
+/* CTA intermediario */
+.cta-band{text-align:center}
+.cta-band h2{max-width:18ch;margin:0 auto 22px}
+.cta-band .btn-comprar{width:min(420px,100%)}
+.cta-band .micro{color:var(--ink-soft)}
 
 /* INCLUI */
-.inclui{max-width:540px;margin:0 auto;display:grid;gap:11px}
-.ii{display:flex;gap:12px;align-items:flex-start;background:#fff;border-radius:14px;padding:15px 17px;box-shadow:var(--sombra-card)}
+.inclui{max-width:540px;margin:0 auto;display:grid;gap:13px}
+.ii{display:flex;gap:13px;align-items:flex-start;background:#fffef9;border-radius:15px;padding:16px 18px;box-shadow:0 12px 26px rgba(120,92,45,.20);border:1px solid rgba(120,92,45,.10)}
 .ii .ck{flex:none;width:26px;height:26px;border-radius:50%;background:var(--sage-deep);display:flex;align-items:center;justify-content:center;margin-top:1px}
 .ii p{font-weight:600;color:var(--ink);line-height:1.4;font-size:16px}
+.ii .tag{display:inline-block;font-family:'Poppins',sans-serif;font-weight:700;font-size:11px;letter-spacing:.06em;text-transform:uppercase;padding:3px 9px;border-radius:100px;margin-bottom:5px}
 .ii.bonus .ck{background:var(--mustard)}
-.ii .tag{display:inline-block;background:rgba(233,180,76,.22);color:var(--mustard-ink);font-family:'Poppins',sans-serif;font-weight:600;font-size:11px;letter-spacing:.05em;text-transform:uppercase;padding:2px 8px;border-radius:100px;margin-bottom:4px}
+.ii.bonus .tag{background:rgba(233,180,76,.22);color:var(--mustard-ink)}
+/* super bonus: por ultimo, cor diferente (destaque roxo-berinjela) */
+.ii.super{background:linear-gradient(145deg,#5A4B7A 0%,#6E5B93 100%);border:0;box-shadow:0 16px 36px rgba(74,60,110,.34)}
+.ii.super .ck{background:var(--mustard)}
+.ii.super p{color:#fff}
+.ii.super p b{color:#F6D77A}
+.ii.super .tag{background:rgba(255,255,255,.16);color:#F6D77A}
 
 /* PREÇO */
 .preco-box{background:#fff;border-radius:26px;padding:40px 28px 32px;max-width:480px;margin:0 auto;box-shadow:0 26px 60px rgba(55,80,74,.28);text-align:center;position:relative}
@@ -194,12 +206,9 @@ footer .copy{font-size:11.5px;color:rgba(255,255,255,.5);margin-top:12px}
   <div class="glow" style="width:420px;height:420px;background:var(--mustard);top:-150px;right:-90px;opacity:.3"></div>
   <div class="glow" style="width:360px;height:360px;background:var(--sage);bottom:-160px;left:-130px;opacity:.35"></div>
   <div class="wrap">
-    <div class="eyebrow reveal">Dream Baby Pocket</div>
     <h1 class="reveal">Seu bebê vai dormir no berço, <span class="hl">sem treino de choro</span>.</h1>
     <div class="hero-foto reveal"><div class="blob"></div><div class="moldura"><img src="../assets/bebe-dormindo.webp" alt="Bebê dormindo tranquilo no berço" width="799" height="1200" fetchpriority="high" decoding="async"></div></div>
-    <p class="lead reveal">E o passo a passo pra isso na sua mão em <b>cerca de 30 minutos</b> — no ritmo do seu bebê, sem adivinhação. Veja como faremos isso 👇</p>
-    <a class="btn btn-comprar reveal" href="https://payfast.greenn.com.br/119638/offer/AXqJQg?ch_id=140071&b_id_1=119672&b_offer_1=oKddbt&b_id_2=119627&b_offer_2=wfOioJ">Quero o plano de sono</a>
-    <div class="micro reveal">🔒 Acesso imediato · 7 dias de garantia · R$67</div>
+    <p class="lead reveal">E o passo a passo pra isso na sua mão em <b>cerca de 30 minutos</b>, no ritmo do seu bebê e sem adivinhação. Veja como faremos isso 👇</p>
   </div>
 </section>
 
@@ -210,26 +219,36 @@ footer .copy{font-size:11.5px;color:rgba(255,255,255,.5);margin-top:12px}
     <h2 class="reveal">Como faremos isso</h2>
     <p class="intro reveal">Nada de tabela genérica. O plano é montado pro perfil de sono do <b>seu</b> bebê.</p>
     <div class="steps">
-      <div class="step reveal"><div class="n">1</div><div class="txt"><b>Você responde um quiz rápido</b><span>Poucas perguntas sobre como o seu bebê dorme hoje.</span></div></div>
-      <div class="step reveal"><div class="n">2</div><div class="txt"><b>Descobre o perfil de sono dele</b><span>São 5 perfis — cada bebê dorme de um jeito.</span></div></div>
-      <div class="step reveal"><div class="n">3</div><div class="txt"><b>Recebe o plano pronto pro perfil dele</b><span>Berço, sonecas e sono da noite, passo a passo.</span></div></div>
-      <div class="step reveal"><div class="n">4</div><div class="txt"><b>Aplica já na próxima soneca</b><span>Transição pro berço com acolhimento — sem treino de choro.</span></div></div>
+      <div class="stepcard reveal"><div class="num">1</div><div class="ico"><svg viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4V3a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v1"/><path d="M8.5 10h7M8.5 14h7M8.5 18h4"/></svg></div><div class="txt"><b>Você responde um quiz rápido</b><span>Poucas perguntas sobre como o seu bebê dorme hoje.</span></div></div>
+      <div class="stepcard reveal"><div class="num">2</div><div class="ico"><svg viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/><path d="M17 4.2l.5 1.3 1.3.5-1.3.5L17 7.8l-.5-1.3L15.2 6l1.3-.5z"/></svg></div><div class="txt"><b>Descobre o perfil de sono dele</b><span>São 5 perfis. Cada bebê dorme de um jeito.</span></div></div>
+      <div class="stepcard reveal"><div class="num">3</div><div class="ico"><svg viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><path d="M9 15l2 2 4-4"/></svg></div><div class="txt"><b>Recebe o plano pronto pro perfil dele</b><span>Berço, sonecas e sono da noite, passo a passo.</span></div></div>
+      <div class="stepcard reveal"><div class="num">4</div><div class="ico"><svg viewBox="0 0 24 24"><path d="M3 18v-5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v5"/><path d="M3 15h18"/><path d="M4 18v2M20 18v2"/><path d="M8 11V7M12 11V7M16 11V7"/></svg></div><div class="txt"><b>Aplica já na próxima soneca</b><span>Transição pro berço com acolhimento e sem treino de choro.</span></div></div>
     </div>
   </div>
 </section>
 
 <!-- ===== 3. O QUE VEM JUNTO ===== -->
-<section class="sec sec-cream">
+<section class="sec sec-sand">
   <div class="wrap">
     <h2 class="reveal">Tudo que vem junto</h2>
     <p class="intro reveal">Um acesso só, tudo pra resolver o sono do seu bebê.</p>
     <div class="inclui">
       <div class="ii reveal"><span class="ck"><svg width="13" height="13" viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5" stroke="#fff" stroke-width="3.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span><p>Quiz de diagnóstico + o <b>perfil de sono</b> do seu bebê</p></div>
-      <div class="ii reveal"><span class="ck"><svg width="13" height="13" viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5" stroke="#fff" stroke-width="3.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span><p><b>Plano de sono</b> pro perfil dele — berço, sonecas e noite</p></div>
+      <div class="ii reveal"><span class="ck"><svg width="13" height="13" viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5" stroke="#fff" stroke-width="3.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span><p><b>Plano de sono</b> pro perfil dele: berço, sonecas e noite</p></div>
       <div class="ii reveal"><span class="ck"><svg width="13" height="13" viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5" stroke="#fff" stroke-width="3.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span><p>Passo a passo da <b>transição pro berço</b>, sem treino de choro</p></div>
-      <div class="ii bonus reveal"><span class="ck"><svg width="13" height="13" viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5" stroke="#fff" stroke-width="3.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span><p><span class="tag">🎁 Super bônus</span>Os <b>5 perfis de sono</b> completos — se o sono mudar, você já sabe o que fazer</p></div>
       <div class="ii bonus reveal"><span class="ck"><svg width="13" height="13" viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5" stroke="#fff" stroke-width="3.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span><p><span class="tag">🎁 Bônus</span>Ebook Saltos + Ebook Atividades + Mini Curso Rotina</p></div>
+      <div class="ii super reveal"><span class="ck"><svg width="13" height="13" viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5" stroke="#fff" stroke-width="3.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span><p><span class="tag">⭐ Super bônus</span>Os <b>5 perfis de sono</b> completos. Se o sono mudar, você já sabe o que fazer</p></div>
     </div>
+  </div>
+</section>
+
+<!-- ===== CTA intermediário ===== -->
+<section class="sec sec-sage cta-band">
+  <div class="glow" style="width:340px;height:340px;background:#fff;top:-120px;right:-100px;opacity:.4"></div>
+  <div class="wrap">
+    <h2 class="reveal">Você pode resolver o sono do seu bebê em <span class="hl">30 minutos</span>.</h2>
+    <a class="btn btn-comprar reveal" href="https://payfast.greenn.com.br/119638/offer/AXqJQg?ch_id=140071&b_id_1=119672&b_offer_1=oKddbt&b_id_2=119627&b_offer_2=wfOioJ">Quero o plano de sono</a>
+    <div class="micro reveal">Acesso imediato · 7 dias de garantia incondicional</div>
   </div>
 </section>
 
@@ -256,7 +275,7 @@ footer .copy{font-size:11.5px;color:rgba(255,255,255,.5);margin-top:12px}
     </div>
 
     <div class="faq">
-      <div class="faq-item reveal"><button class="faq-q">Preciso deixar meu bebê chorando?<span class="s">+</span></button><div class="faq-a"><p>Não. O método é <b>sem treino de choro</b> — a transição pro berço é feita com acolhimento, no ritmo do seu bebê.</p></div></div>
+      <div class="faq-item reveal"><button class="faq-q">Preciso deixar meu bebê chorando?<span class="s">+</span></button><div class="faq-a"><p>Não. O método é <b>sem treino de choro</b>. A transição pro berço é feita com acolhimento, no ritmo do seu bebê.</p></div></div>
       <div class="faq-item reveal"><button class="faq-q">Quanto tempo leva pra ter o plano?<span class="s">+</span></button><div class="faq-a"><p>Cerca de 30 minutos: você responde o quiz, descobre o perfil e já sai com o passo a passo na mão pra aplicar na próxima soneca.</p></div></div>
       <div class="faq-item reveal"><button class="faq-q">Como recebo o acesso?<span class="s">+</span></button><div class="faq-a"><p>Na hora. Assim que o pagamento é confirmado, o acesso chega no seu e-mail. O conteúdo fica disponível por 12 meses.</p></div></div>
       <div class="faq-item reveal"><button class="faq-q">Quais as formas de pagamento?<span class="s">+</span></button><div class="faq-a"><p>Cartão de crédito, Pix, PayPal ou Google Pay. No cartão você pode parcelar em até 12x.</p></div></div>
