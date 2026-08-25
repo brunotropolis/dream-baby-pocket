@@ -196,6 +196,26 @@ section{position:relative;overflow:hidden}
 .pay-methods .pay svg{height:19px;width:auto;display:block}
 @media(max-width:720px){.pay-methods{flex-wrap:nowrap;gap:5px}.pay-methods .pay{min-width:42px;padding:0 6px;height:32px;border-radius:8px}.pay-methods .pay svg{height:13.5px}}
 
+/* AUTORIDADE */
+.auth-grid{display:grid;grid-template-columns:.82fr 1.18fr;gap:40px;align-items:center;max-width:760px;margin:0 auto}
+@media(max-width:760px){.auth-grid{grid-template-columns:1fr;gap:26px;text-align:center}}
+.auth-foto{position:relative;display:flex;justify-content:center}
+.auth-foto .anel{position:relative;width:min(260px,68vw);aspect-ratio:1;border-radius:50%;padding:9px;background:conic-gradient(from 140deg,var(--mustard),var(--terra),var(--sage-deep),var(--mustard));box-shadow:0 22px 48px rgba(94,74,60,.22)}
+.auth-foto .anel img{width:100%;height:100%;object-fit:cover;border-radius:50%;display:block}
+@media(max-width:760px){.auth-foto .anel{width:min(190px,50vw)}}
+.eyebrow{font-family:'Poppins',sans-serif;font-weight:600;font-size:12.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--terra-deep);display:block;margin-bottom:10px}
+.auth-nome{font-family:'Poppins',sans-serif;font-weight:700;font-size:24px;margin:0 0 3px;color:var(--slate-ink)}
+.auth-cargo{font-size:15px;color:var(--terra-deep);font-weight:600;margin-bottom:16px}
+.bio{color:var(--ink-soft);line-height:1.7;font-size:16px;margin-bottom:12px;text-wrap:pretty}
+.bio strong{color:var(--slate-ink);font-weight:700}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:24px}
+@media(max-width:640px){.stats{grid-template-columns:repeat(2,1fr)}}
+.stat{background:#fff;border-radius:16px;padding:15px 10px;text-align:center;box-shadow:var(--sombra-card)}
+.stat .st-ico{color:var(--terra-deep);margin-bottom:6px;line-height:0}
+.stat .st-ico svg{width:24px;height:24px;margin:0 auto}
+.stat .n{font-family:'Poppins',sans-serif;font-weight:700;font-size:22px;color:var(--terra-deep)}
+.stat .l{font-size:11.5px;color:var(--ink-soft);font-weight:600;margin-top:3px;text-transform:uppercase;letter-spacing:.05em}
+
 /* FAQ */
 .faq{max-width:560px;margin:26px auto 0;text-align:left}
 .faq-item{border-bottom:1px solid rgba(255,255,255,.22)}
@@ -286,7 +306,39 @@ footer .copy{font-size:11.5px;color:rgba(255,255,255,.5);margin-top:12px}
         <span class="pay" title="Google Pay"><svg viewBox="0 0 60 24" xmlns="http://www.w3.org/2000/svg"><g transform="scale(0.5)"><path fill="#4285F4" d="M45.12 24.5c0-1.56-.14-3.06-.4-4.5H24v8.51h11.84c-.51 2.75-2.06 5.08-4.39 6.64v5.52h7.11c4.16-3.83 6.56-9.47 6.56-16.17z"/><path fill="#34A853" d="M24 46c5.94 0 10.92-1.97 14.56-5.33l-7.11-5.52c-1.97 1.32-4.49 2.1-7.45 2.1-5.73 0-10.58-3.87-12.31-9.07H4.34v5.7C7.96 41.07 15.4 46 24 46z"/><path fill="#FBBC05" d="M11.69 28.18C11.25 26.86 11 25.45 11 24s.25-2.86.69-4.18v-5.7H4.34C2.85 17.09 2 20.45 2 24s.85 6.91 2.34 9.88l7.35-5.7z"/><path fill="#EA4335" d="M24 10.75c3.23 0 6.13 1.11 8.41 3.29l6.31-6.31C34.91 4.18 29.93 2 24 2 15.4 2 7.96 6.93 4.34 14.12l7.35 5.7c1.73-5.2 6.58-9.07 12.31-9.07z"/></g><text x="26" y="17" font-family="Arial,Helvetica,sans-serif" font-weight="600" font-size="15" fill="#5F6368">Pay</text></svg></span>
       </div>
     </div>
+  </div>
+</section>
 
+<!-- ===== AUTORIDADE ===== -->
+<section class="sec sec-cream">
+  <div class="glow" style="width:380px;height:380px;background:var(--sage);top:8%;right:-150px;opacity:.3"></div>
+  <div class="wrap">
+    <div class="auth-grid">
+      <div class="auth-foto reveal">
+        <div class="anel"><img src="../assets/day-circle.webp" alt="Dayane Dos Anjos, consultora de sono" loading="lazy" decoding="async"></div>
+      </div>
+      <div>
+        <span class="eyebrow reveal">Quem criou esse caminho</span>
+        <p class="auth-nome reveal">Dayane Dos Anjos</p>
+        <p class="auth-cargo reveal">Consultora de sono, amamentação e cuidados com o bebê.</p>
+        <p class="bio reveal">Depois de orientar <strong>mais de 21 mil alunas</strong>, a Day percebeu que não existe receita única pra sono de bebê. Cada perfil tem um padrão diferente, uma dor diferente, e precisa de uma abordagem diferente.</p>
+        <p class="bio reveal">Por isso o Dream Baby foi construído perfil por perfil. Pra ela, <strong>sono é necessidade básica, assim como se alimentar</strong>. E deixar chorar não é o caminho: com carinho e presença, você guia o bebê pra uma boa qualidade de sono desde cedo.</p>
+        <div class="stats">
+          <div class="stat reveal"><div class="st-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M16 20v-1.5a3.5 3.5 0 0 0-3.5-3.5h-5A3.5 3.5 0 0 0 4 18.5V20"/><circle cx="9.5" cy="8" r="3.2"/><path d="M20 20v-1.5a3.5 3.5 0 0 0-2.6-3.4M15.5 4.8a3.2 3.2 0 0 1 0 6.3"/></svg></div><div class="n">+21 mil</div><div class="l">alunas</div></div>
+          <div class="stat reveal"><div class="st-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="4.5"/><path d="M10.2 8.7l5 3.3-5 3.3z" fill="currentColor" stroke="none"/></svg></div><div class="n">+807k</div><div class="l">YouTube</div></div>
+          <div class="stat reveal"><div class="st-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"/></svg></div><div class="n">+642k</div><div class="l">Instagram</div></div>
+          <div class="stat reveal"><div class="st-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M13.5 4v10.2a3.4 3.4 0 1 1-3.4-3.4"/><path d="M13.5 4c.5 2.1 1.9 3.5 4 3.8"/></svg></div><div class="n">+660k</div><div class="l">TikTok</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FAQ ===== -->
+<section class="sec sec-deep">
+  <div class="glow" style="width:360px;height:360px;background:var(--mustard);top:-100px;left:-120px;opacity:.14"></div>
+  <div class="wrap">
+    <h2 class="reveal">Perguntas frequentes</h2>
     <div class="faq">
       <div class="faq-item reveal"><button class="faq-q">Quanto tempo leva pra ver o meu plano?<span class="s">+</span></button><div class="faq-a"><p>Em cerca de 30 minutos você responde o quiz, descobre o perfil e já sai com o passo a passo na mão pra aplicar já na próxima soneca.</p></div></div>
       <div class="faq-item reveal"><button class="faq-q">O Dream Baby Pocket é indicado pra qual idade?<span class="s">+</span></button><div class="faq-a"><p>Funciona pra bebês de 0 a 12 meses. E se você é gestante, dá pra já chegar preparada antes do bebê nascer.</p></div></div>
