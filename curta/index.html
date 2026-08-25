@@ -81,14 +81,14 @@ fbq('init', '2103631056813206');
   var evs=['pointerdown','touchstart','keydown','scroll'];
   function onInteract(){loadTags();evs.forEach(function(e){window.removeEventListener(e,onInteract)});}
   evs.forEach(function(e){window.addEventListener(e,onInteract,{once:true,passive:true})});
-  function schedule(){if('requestIdleCallback' in window){requestIdleCallback(loadTags,{timeout:3500});}else{setTimeout(loadTags,2500);}}
+  function schedule(){setTimeout(loadTags,3500);}
   if(document.readyState==='complete'){schedule();}else{window.addEventListener('load',schedule);}
 })();
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Quicksand:wght@400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
-<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Quicksand:wght@400;500;600;700&display=swap"></noscript>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Quicksand:wght@500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Quicksand:wght@500;600;700&display=swap"></noscript>
 <style>
 :root{
   --sage:#A7C3BB; --sage-deep:#6E9488; --sage-soft:#CBDDD6; --slate:#4F6E64; --slate-ink:#37504A;
