@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="preload" as="image" href="../assets/bebe-dormindo.webp" fetchpriority="high">
+<link rel="preload" as="image" href="../assets/bebe-dormindo-sm.webp" fetchpriority="high">
 <title>Seu bebê dormindo no berço, sem precisar deixar ele chorando | Dream Baby Pocket</title>
 <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="../assets/favicon-32.png" sizes="32x32" type="image/png">
@@ -13,11 +13,9 @@
 <meta name="robots" content="noindex">
 <!-- Meta Pixel (2199334337151314 browser+CAPI, 2103631056813206 browser) -->
 <script>
-!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+!function(f,b,e,v,n){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
 n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
-n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
-document,'script','https://connect.facebook.net/en_US/fbevents.js');
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[]}(window,document,'script');
 (function(){
   function gc(n){var m=document.cookie.match('(^|; )'+n+'=([^;]+)');return m?decodeURIComponent(m[2]):'';}
   function sc(n,v){try{document.cookie=n+'='+v+'; path=/; max-age=7776000; domain=.manualdorecemnascido.com.br; SameSite=Lax';}catch(e){}}
@@ -62,23 +60,31 @@ fbq('init', '2103631056813206');
     contents:[{id:'119638',name:'Dream Baby Pocket',content_type:'product',quantity:1}]});
 })();
 </script>
-<!-- Microsoft Clarity (conta Dream Baby — mesmo do perfis) -->
-<script type="text/javascript">
-(function(c,l,a,r,i,t,y){
-    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-})(window,document,"clarity","script","iea4ittipt");
-</script>
-<!-- TikTok Pixel -->
+<!-- Microsoft Clarity: carregado no bootstrap adiado (perf) -->
+<!-- TikTok Pixel (stub imediato; ttq.load adiado no bootstrap) -->
 <script>
 !function (w, d, t) {
   w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie","holdConsent","revokeConsent","grantConsent"],ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e},ttq.load=function(e,n){var r="https://analytics.tiktok.com/i18n/pixel/events.js",o=n&&n.partner;ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=r,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};var s=d.createElement("script");s.type="text/javascript",s.async=!0,s.src=r+"?sdkid="+e+"&lib="+t;var a=d.getElementsByTagName("script")[0];a.parentNode.insertBefore(s,a)};
-  ttq.load("CKBAUIBC77U2JMMIPN5G");
-  ttq.page();
 }(window, document, "ttq");
 </script>
 <!-- End TikTok Pixel -->
+<!-- Bootstrap adiado dos pixels (Meta/TikTok/Clarity): dispara na 1a interacao OU idle apos load OU timeout. CAPI server-side ja mandou PageView/ViewContent na hora. -->
+<script>
+(function(){
+  var loaded=false;
+  function loadTags(){
+    if(loaded)return;loaded=true;
+    var fb=document.createElement('script');fb.async=true;fb.src='https://connect.facebook.net/en_US/fbevents.js';document.head.appendChild(fb);
+    try{if(window.ttq){ttq.load('CKBAUIBC77U2JMMIPN5G');ttq.page();}}catch(e){}
+    (function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src='https://www.clarity.ms/tag/'+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,'clarity','script','iea4ittipt');
+  }
+  var evs=['pointerdown','touchstart','keydown','scroll'];
+  function onInteract(){loadTags();evs.forEach(function(e){window.removeEventListener(e,onInteract)});}
+  evs.forEach(function(e){window.addEventListener(e,onInteract,{once:true,passive:true})});
+  function schedule(){if('requestIdleCallback' in window){requestIdleCallback(loadTags,{timeout:3500});}else{setTimeout(loadTags,2500);}}
+  if(document.readyState==='complete'){schedule();}else{window.addEventListener('load',schedule);}
+})();
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Quicksand:wght@400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
@@ -219,7 +225,7 @@ footer .copy{font-size:11.5px;color:rgba(255,255,255,.5);margin-top:12px}
   <div class="glow" style="width:360px;height:360px;background:var(--sage);bottom:-160px;left:-130px;opacity:.35"></div>
   <div class="wrap">
     <h1 class="reveal">Em <span class="hl">30 minutos</span>, você tem o método pro seu bebê dormir no berço.</h1>
-    <div class="hero-foto reveal"><div class="blob"></div><div class="moldura"><img src="../assets/bebe-dormindo.webp" alt="Bebê dormindo tranquilo no berço" width="799" height="1200" fetchpriority="high" decoding="async"></div></div>
+    <div class="hero-foto reveal"><div class="blob"></div><div class="moldura"><img src="../assets/bebe-dormindo-sm.webp" alt="Bebê dormindo tranquilo no berço" width="600" height="901" fetchpriority="high" decoding="async"></div></div>
     <p class="lead reveal">Validado por <b>+15 mil famílias</b>. Você descobre o perfil de sono do seu bebê e aprende as técnicas certas pro padrão dele, sem precisar deixar o bebê chorando.</p>
     <a class="btn btn-ghost reveal" href="#como">Veja como faremos isso 👇</a>
   </div>
