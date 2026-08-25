@@ -330,7 +330,7 @@ document.querySelectorAll('.faq-q').forEach(function(btn){
     pass.append('utm_medium','sem-url-tags');
     pass.append('utm_campaign','[TRAFEGO][DREAM POCKET] fallback');
   }
-  var s=pass.toString();if(!s)return;
+  var uc=pass.get('utm_content')||'';pass.set('utm_content',uc?uc+'|curta':'curta');/* marca variante A/B -> venda separavel no dash */var s=pass.toString();if(!s)return;
   document.querySelectorAll('a.btn-comprar').forEach(function(a){a.href+=(a.href.indexOf('?')>-1?'&':'?')+s;});
 })();
 /* InitiateCheckout no clique — preventDefault + 250ms */
