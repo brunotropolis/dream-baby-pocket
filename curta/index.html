@@ -429,7 +429,7 @@ document.querySelectorAll('a.btn-comprar').forEach(function(a){
   var U='https://n8n-n8n.xktssy.easypanel.host/webhook/ab-ic', h=location.hostname, p=location.pathname;
   var m=p.match(/(canguru|coala|coruja|leao|suricato)/);
   var PAG=/dbpocket/.test(h)?'pocket':/tdapocket/.test(h)?'guia':/perfis/.test(h)?(m?'quiz-'+m[1]:'quiz'):(h.split('.')[0]||'pagina');
-  var vm=p.match(/\/(v\d+|curta)(?:\/|$)/); var VER=vm?vm[1]:'base';
+  var VER='curta'; /* HARDCODED: com o split same-URL a pagina e servida na raiz, o path nao identifica mais a variante */
   var BTN='.btn-comprar, a[href*="payfast"], a[href*="checkout"], a[href*="greenn"]';
   function hit(ev){ try{ navigator.sendBeacon(U, new Blob([JSON.stringify({pagina:PAG,versao:VER,evento:ev})],{type:'text/plain'})); }catch(e){} }
   var done={}; function once(ev){ if(done[ev])return; done[ev]=1; hit(ev); }
