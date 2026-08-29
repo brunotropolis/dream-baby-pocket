@@ -440,5 +440,29 @@ document.querySelectorAll('a.btn-comprar').forEach(function(a){
   document.addEventListener('click',function(e){ var t=e.target.closest(BTN); if(t) once('ic'); },true);
 })();
 </script>
+
+<!-- first-touch (29/Ago): guarda o PRIMEIRO clique (cookie 1 ano) e repassa pro checkout em utm_term=ft:... + ft_*.
+     Responde 'a venda da bio veio de qual anuncio?' — atribuicao de primeiro toque alem do last-click. -->
+<script>
+(function(){try{
+  var K='mrn_ft';
+  function gc(n){var m=document.cookie.match('(?:^|; )'+n+'=([^;]*)');return m?decodeURIComponent(m[1]):null}
+  if(!gc(K)){
+    var p=new URLSearchParams(location.search);
+    var temUtm=p.get('utm_source')||p.get('utm_campaign')||p.get('fbclid');
+    var ft={s:(p.get('utm_source')||'').slice(0,40),c:(p.get('utm_campaign')||'').slice(0,80),ct:(p.get('utm_content')||'').slice(0,60),f:p.get('fbclid')?'1':'0',d:new Date().toISOString().slice(0,10),r:((document.referrer||'').split('/')[2]||'').slice(0,40)};
+    if(temUtm||ft.r){document.cookie=K+'='+encodeURIComponent(JSON.stringify(ft))+'; Path=/; Max-Age=31536000; SameSite=Lax'}
+  }
+  function anexa(a){try{
+    var raw=gc(K);if(!raw)return;var o=JSON.parse(raw);
+    var u=new URL(a.href);
+    if(!u.searchParams.get('utm_term')){var t=('ft:'+(o.s||o.r||'direto')+'|'+(o.c||'')+'|'+o.d).slice(0,120);u.searchParams.set('utm_term',t)}
+    if(o.c&&!u.searchParams.get('ft_campaign'))u.searchParams.set('ft_campaign',o.c);
+    if(o.d&&!u.searchParams.get('ft_date'))u.searchParams.set('ft_date',o.d);
+    a.href=u.toString();
+  }catch(e){}}
+  document.addEventListener('click',function(e){var a=e.target.closest('a[href*="payfast"],a[href*="greenn"]');if(a)anexa(a)},true);
+}catch(e){}})();
+</script>
 </body>
 </html>
