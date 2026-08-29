@@ -288,7 +288,7 @@ footer .copy{font-size:11.5px;color:rgba(255,255,255,.5);margin-top:12px}
 <section class="sec sec-deep">
   <div class="glow" style="width:400px;height:400px;background:var(--mustard);top:-120px;right:-100px;opacity:.16"></div>
   <div class="wrap">
-    <div class="preco-box reveal">
+    <div class="preco-box reveal" data-sec="oferta">
       <span class="selo-mini">Acesso imediato</span>
       <p class="preco-chamada">Você pode resolver o sono do seu bebê em <span class="hl">30 minutos</span>.</p>
       <div class="de">Por apenas</div>
@@ -421,6 +421,23 @@ document.querySelectorAll('a.btn-comprar').forEach(function(a){
     if(TT){ var h=a.getAttribute('href')||''; if(h.charAt(0)!=='#' && h.indexOf('ttclid=')<0){ a.href=h+(h.indexOf('?')>-1?'&':'?')+'ttclid='+encodeURIComponent(TT); } }
     a.addEventListener('click',function(){ fire('InitiateCheckout'); });
   });
+})();
+</script>
+<!-- funil-secao (Sherlock) — universal, auto-detecta pagina/versao. abriu->viu oferta->viu botao->ic -->
+<script>
+(function(){
+  var U='https://n8n-n8n.xktssy.easypanel.host/webhook/ab-ic', h=location.hostname, p=location.pathname;
+  var m=p.match(/(canguru|coala|coruja|leao|suricato)/);
+  var PAG=/dbpocket/.test(h)?'pocket':/tdapocket/.test(h)?'guia':/perfis/.test(h)?(m?'quiz-'+m[1]:'quiz'):(h.split('.')[0]||'pagina');
+  var vm=p.match(/\/(v\d+|curta)(?:\/|$)/); var VER=vm?vm[1]:'base';
+  var BTN='.btn-comprar, a[href*="payfast"], a[href*="checkout"], a[href*="greenn"]';
+  function hit(ev){ try{ navigator.sendBeacon(U, new Blob([JSON.stringify({pagina:PAG,versao:VER,evento:ev})],{type:'text/plain'})); }catch(e){} }
+  var done={}; function once(ev){ if(done[ev])return; done[ev]=1; hit(ev); }
+  once('pageview');
+  function watch(sel,ev,th){ var el=document.querySelector(sel); if(!el)return; try{ var io=new IntersectionObserver(function(es){ for(var i=0;i<es.length;i++){ if(es[i].isIntersecting){ once(ev); io.disconnect(); return; } } },{threshold:th}); io.observe(el); }catch(e){ once(ev); } }
+  watch('[data-sec="oferta"]','viu_oferta',0.05); /* bloco alto: 5% visivel ja conta (25% subcontava) */
+  watch(BTN,'viu_botao',0.25);
+  document.addEventListener('click',function(e){ var t=e.target.closest(BTN); if(t) once('ic'); },true);
 })();
 </script>
 </body>

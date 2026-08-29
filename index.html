@@ -634,14 +634,14 @@ document.querySelectorAll('a.btn-comprar').forEach(function(a){
   var U='https://n8n-n8n.xktssy.easypanel.host/webhook/ab-ic', h=location.hostname, p=location.pathname;
   var m=p.match(/(canguru|coala|coruja|leao|suricato)/);
   var PAG=/dbpocket/.test(h)?'pocket':/tdapocket/.test(h)?'guia':/perfis/.test(h)?(m?'quiz-'+m[1]:'quiz'):(h.split('.')[0]||'pagina');
-  var vm=p.match(/\/v(\d+)(?:\/|$)/); var VER=vm?'v'+vm[1]:'base';
+  var vm=p.match(/\/(v\d+|curta)(?:\/|$)/); var VER=vm?vm[1]:'base';
   var BTN='.btn-comprar, a[href*="payfast"], a[href*="checkout"], a[href*="greenn"]';
   function hit(ev){ try{ navigator.sendBeacon(U, new Blob([JSON.stringify({pagina:PAG,versao:VER,evento:ev})],{type:'text/plain'})); }catch(e){} }
   var done={}; function once(ev){ if(done[ev])return; done[ev]=1; hit(ev); }
   once('pageview');
-  function watch(sel,ev){ var el=document.querySelector(sel); if(!el)return; try{ var io=new IntersectionObserver(function(es){ for(var i=0;i<es.length;i++){ if(es[i].isIntersecting){ once(ev); io.disconnect(); return; } } },{threshold:0.25}); io.observe(el); }catch(e){ once(ev); } }
-  watch('[data-sec="oferta"]','viu_oferta');
-  watch(BTN,'viu_botao');
+  function watch(sel,ev,th){ var el=document.querySelector(sel); if(!el)return; try{ var io=new IntersectionObserver(function(es){ for(var i=0;i<es.length;i++){ if(es[i].isIntersecting){ once(ev); io.disconnect(); return; } } },{threshold:th==null?0.25:th}); io.observe(el); }catch(e){ once(ev); } }
+  watch('[data-sec="oferta"]','viu_oferta',0.05); /* bloco alto: 5% visivel ja conta (25% subcontava e dava viu_botao > viu_oferta) */
+  watch(BTN,'viu_botao',0.25);
   document.addEventListener('click',function(e){ var t=e.target.closest(BTN); if(t) once('ic'); },true);
 })();
 </script>
