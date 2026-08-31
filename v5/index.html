@@ -594,7 +594,8 @@ document.querySelectorAll('.faq-q').forEach(function(btn){
     pass.append('utm_medium','sem-url-tags');
     pass.append('utm_campaign','[TRAFEGO][DREAM POCKET] fallback');
   }
-  /* PRINCIPAL/BASE (era a v3, promovida a principal em 19/Ago): NAO carimba versao no utm_content -> a venda conta como base no A/B. */
+  /* VARIANTE A/B: v5 ocupa o slot desafiante "curta" -> carimba |curta no utm_content pra a venda contar como desafiante no A/B (mesmo marcador que o snapshot le). */
+  var uc=pass.get('utm_content')||'';pass.set('utm_content',uc?uc+'|curta':'curta');
   var s=pass.toString();if(!s)return;
   document.querySelectorAll('a.btn-comprar').forEach(function(a){a.href+=(a.href.indexOf('?')>-1?'&':'?')+s;});
 })();
@@ -640,7 +641,7 @@ document.querySelectorAll('a.btn-comprar').forEach(function(a){
   var U='https://n8n-n8n.xktssy.easypanel.host/webhook/ab-ic', h=location.hostname, p=location.pathname;
   var m=p.match(/(canguru|coala|coruja|leao|suricato)/);
   var PAG=/dbpocket/.test(h)?'pocket':/tdapocket/.test(h)?'guia':/perfis/.test(h)?(m?'quiz-'+m[1]:'quiz'):(h.split('.')[0]||'pagina');
-  var vm=p.match(/\/(v\d+|curta)(?:\/|$)/); var VER=vm?vm[1]:'base';
+  var VER='curta'; /* HARDCODED: v5 ocupa o slot desafiante e e servida na raiz pelo split same-URL, o path (/) nao identifica a variante */
   var BTN='.btn-comprar, a[href*="payfast"], a[href*="checkout"], a[href*="greenn"]';
   function hit(ev){ try{ navigator.sendBeacon(U, new Blob([JSON.stringify({pagina:PAG,versao:VER,evento:ev})],{type:'text/plain'})); }catch(e){} }
   var done={}; function once(ev){ if(done[ev])return; done[ev]=1; hit(ev); }
