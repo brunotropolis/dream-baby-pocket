@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+<script>/* fix-fragment-utm 17/Set/2026: o url_tags da Meta substitui {{campaign.name}} CRU na URL; o "#id" do nome de campanha vira fragment e corta utm_campaign (e perde utm_medium/utm_content). Recola o pedaco perdido na query ANTES de qualquer script ler location.search. */
+(function(){try{var h=location.hash,s=location.search;if(!h||h.indexOf('&utm_')===-1||s.indexOf('utm_')===-1)return;var raw=h.slice(1),i=raw.indexOf('&'),head=raw.slice(0,i),tail=raw.slice(i+1);try{head=decodeURIComponent(head)}catch(e){}var q=new URLSearchParams(s),last=null;q.forEach(function(v,k){last=k});if(last&&head)q.set(last,(q.get(last)||'')+'#'+head);tail.split('&').forEach(function(kv){var j=kv.indexOf('=');if(j<1)return;var k=kv.slice(0,j),v=kv.slice(j+1);try{k=decodeURIComponent(k)}catch(e){}try{v=decodeURIComponent(v)}catch(e){}if(!q.get(k))q.set(k,v)});history.replaceState(null,'',location.pathname+'?'+q.toString())}catch(e){}})();</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="preload" as="image" href="../assets/bebe-dormindo-sm.webp" fetchpriority="high">
