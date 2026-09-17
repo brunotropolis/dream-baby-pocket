@@ -339,8 +339,28 @@ footer .copy{font-size:12.5px;color:rgba(255,255,255,.4)}
   <div class="wrap">
     <div class="hero-grid">
       <div>
-        <h1 class="reveal hero-h1-v3">Saiba como fazer seu bebê dormir bem e no berço. <span class="hl-terra">Sem choro.</span></h1>
-        <p class="lead reveal">Responda um quiz rápido, descubra o perfil de sono do seu bebê e receba um plano pra ele ter um <b>sono de qualidade</b>, na soneca e à noite.</p>
+        <h1 class="reveal hero-h1-v3" id="heroH1">Saiba como fazer seu bebê dormir bem e no berço. <span class="hl-terra">Sem choro.</span></h1>
+        <p class="lead reveal" id="heroLead">Responda um quiz rápido, descubra o perfil de sono do seu bebê e receba um plano pra ele ter um <b>sono de qualidade</b>, na soneca e à noite.</p>
+        <script>
+        (function(){
+          var HERO={
+            db053:{h:'O colo dele virou <span class="hl-terra">o seu dia inteiro</span>?',s:'Não é manha dele e nem exagero seu. Quando o sono depende só do colo, a sua rotina para junto. Dá pra ensinar ele a dormir no berço <b>com autonomia, no ritmo dele e sem deixar chorar</b>, e o seu dia volta a ser seu.'},
+            db045:{h:'Seu bebê só aceita dormir <span class="hl-terra">no seu colo</span>?',s:'Não é porque você errou, é porque ninguém te ensinou a fazer diferente. Existe um caminho prático e carinhoso pra levar ele do colo pro berço, <b>com segurança, respeito e sem deixar chorar</b>.'},
+            db101:{h:'Parece que o sono do seu bebê <span class="hl-terra">depende só de você</span>?',s:'Eu sei o quanto isso esgota. Dá pra mudar sem choro e sem método rígido: ele aprende a dormir bem no berço <b>com autonomia, no ritmo dele</b>, sem depender do colo pra pegar no sono.'},
+            db109:{h:'E se o seu bebê <span class="hl-terra">dormisse bem no berço</span>?',s:'Um sono mais tranquilo e de qualidade muda o descanso do bebê e o seu, <b>na soneca e à noite</b>. Dá pra ensinar ele a dormir bem no berço, no ritmo dele e sem deixar chorar.'},
+            db041:{h:'Só dorme no colo e chora quando <span class="hl-terra">encosta no berço</span>?',s:'Você merece uma solução que funcione de verdade. Ensine ele a dormir bem no berço <b>com o seu cuidado e carinho, no ritmo dele e sem deixar chorar</b>.'}
+          };
+          try{
+            var p=new URLSearchParams(location.search).get('h');
+            if(p&&HERO[p]){
+              var h=document.getElementById('heroH1'),l=document.getElementById('heroLead');
+              if(h)h.innerHTML=HERO[p].h;
+              if(l)l.innerHTML=HERO[p].s;
+              if(window.clarity){try{clarity('set','hero',p)}catch(e){}}
+            }
+          }catch(e){}
+        })();
+        </script>
         <div class="pill reveal"><span class="pi">⏱</span><span class="pt">Com o plano na mão<br class="only-mob"> em cerca de <b>30 minutos</b></span></div>
         <div class="scroll-hint reveal" aria-hidden="true">
           <span>Entenda o sono do seu bebê</span>
