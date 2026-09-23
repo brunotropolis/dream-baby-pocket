@@ -652,6 +652,8 @@ document.querySelectorAll('a.btn-comprar').forEach(function(a){
   watch('[data-sec="oferta"]','viu_oferta',0.05); /* bloco alto: 5% visivel ja conta (25% subcontava e dava viu_botao > viu_oferta) */
   watch(BTN,'viu_botao',0.25);
   document.addEventListener('click',function(e){ var t=e.target.closest(BTN); if(t) once('ic'); },true);
+  /* clique_topo (23/09): clique em CTA dentro do hero (1a dobra), pra medir quem clica antes de rolar */
+  document.addEventListener('click',function(e){ var a=e.target.closest('a,button'); if(!a)return; var hr=a.getAttribute('href')||''; if(!a.matches(BTN)&&!/btn|cta/i.test(String(a.className))&&hr.charAt(0)!=='#')return; if(a.closest('.hero')) once('clique_topo'); },true);
 })();
 </script>
 
