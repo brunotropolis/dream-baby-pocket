@@ -1,4 +1,7 @@
-/* SEMANA DA BLACK — barra no topo + contador da semana (seg 00h a dom 23h59 BRT, renova sozinho)
+/* SEMANA DA BLACK — barra no topo + contador POR VISITANTE (11/11, pedido Bruno; antes: semana seg-dom que renovava pra todo mundo)
+   1ª visita: preço de Black até o fim do dia seguinte (23h59 BRT). Volta dentro do prazo: o MESMO contador segue (não recomeça).
+   Volta depois do prazo: "PRAZO PRORROGADO" até o fim do dia seguinte a esse acesso. Guardado no navegador (localStorage, por site).
+   Mede no beacon ab-ic: <pagina>|visitante|novo_pv, volta_pv, novo_ic, volta_ic, prorrogado.
    + selo "Preço de Black" com brilho e "de R$ 97 por R$ 67" no bloco de preço + cupom no link do checkout.
    Um arquivo só, igual em todas as páginas. Desligar = remover a tag <script src="black.js">. */
 (function () {
@@ -58,19 +61,31 @@
     '@media (prefers-reduced-motion:reduce){.bk-selo,.bk-selo:after,.bk-bar:after{animation:none}}';
   var st = document.createElement('style'); st.textContent = css; document.head.appendChild(st);
 
-  // semana em BRT (UTC-3, sem horário de verão): segunda 00:00 até domingo 23:59:59
-  function semana() {
-    var agoraBrt = new Date(Date.now() - 3 * 3600e3);
-    var dow = (agoraBrt.getUTCDay() + 6) % 7; // 0 = segunda
-    var ini = Date.UTC(agoraBrt.getUTCFullYear(), agoraBrt.getUTCMonth(), agoraBrt.getUTCDate() - dow);
-    var fim = ini + 7 * 864e5; // segunda seguinte 00:00 BRT
-    return { ini: new Date(ini), fimDia: new Date(fim - 864e5), fimMs: fim + 3 * 3600e3 };
-  }
+  // prazo por visitante (BRT = UTC-3, sem horário de verão)
+  function fimDeAmanha() { var b = new Date(Date.now() - 3 * 3600e3); return Date.UTC(b.getUTCFullYear(), b.getUTCMonth(), b.getUTCDate() + 2) + 3 * 3600e3 - 1000; }
+  var LS = { get: function (k) { try { return localStorage.getItem(k); } catch (e) { return null; } }, set: function (k, v) { try { localStorage.setItem(k, v); } catch (e) {} } };
+  var agora = Date.now(), prazo = +LS.get('bk_prazo') || 0, ultima = +LS.get('bk_ultima') || 0, visitas = +LS.get('bk_visitas') || 0;
+  var volta = visitas > 0 && agora - ultima > 30 * 60e3; // voltou numa sessão nova (30 min depois)
+  var prorrogado = LS.get('bk_prorrogado') === '1', acabouDeProrrogar = false;
+  if (!prazo) { prazo = fimDeAmanha(); prorrogado = false; }
+  else if (agora > prazo) { prazo = fimDeAmanha(); prorrogado = true; acabouDeProrrogar = true; }
+  if (!visitas || agora - ultima > 30 * 60e3) visitas++;
+  LS.set('bk_prazo', String(prazo)); LS.set('bk_ultima', String(agora)); LS.set('bk_visitas', String(visitas)); LS.set('bk_prorrogado', prorrogado ? '1' : '0');
+  function semana() { var f = new Date(prazo - 3 * 3600e3); return { fimDia: f, fimMs: prazo }; }
+  // medidor: quem volta x quem é novo (mesmo beacon do funil por seção)
+  (function () {
+    var h = location.hostname, p = location.pathname, m = p.match(/(canguru|coala|coruja|leao|suricato)/);
+    var PAG = /dbpocket/.test(h) ? 'pocket' : /guiapega|guiadapega|tdapocket/.test(h) ? 'guia' : /perfis/.test(h) ? (m ? 'quiz-' + m[1] : 'quiz') : /mathias/.test(h) ? 'mathias' : (h.split('.')[0] || 'pagina');
+    var U = 'https://n8n-n8n.xktssy.easypanel.host/webhook/ab-ic', tipo = visitas > 1 ? 'volta' : 'novo', feito = {};
+    function hit(ev) { if (feito[ev]) return; feito[ev] = 1; try { navigator.sendBeacon(U, new Blob([JSON.stringify({ pagina: PAG, versao: 'visitante', evento: ev })], { type: 'text/plain' })); } catch (e) {} }
+    hit(tipo + '_pv'); if (acabouDeProrrogar) hit('prorrogado');
+    document.addEventListener('click', function (e) { var a = e.target.closest && e.target.closest('a[href*="payfast"], .btn-comprar'); if (a) hit(tipo + '_ic'); }, true);
+  })();
   var MES = ['jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez'];
   function dm(d) { return d.getUTCDate() + ' ' + MES[d.getUTCMonth()]; }
 
   var cal = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path fill="currentColor" d="M7 2a1 1 0 0 1 1 1v1h8V3a1 1 0 1 1 2 0v1h1a3 3 0 0 1 3 3v2H2V7a3 3 0 0 1 3-3h1V3a1 1 0 0 1 1-1zM2 11h20v8a3 3 0 0 1-3 3H5a3 3 0 0 1-3-3v-8z"/></svg>';
-  var titHtml = '<div class="bk-tit"><div class="bk-nome">SEMANA DA <b>BLACK</b></div><div class="bk-datas">' + cal + '<span class="bk-datas-txt"></span></div></div>';
+  var titHtml = '<div class="bk-tit"><div class="bk-nome">' + (prorrogado ? 'PRAZO <b>PRORROGADO</b>' : 'PREÇO DE <b>BLACK</b>') + '</div><div class="bk-datas">' + cal + '<span class="bk-datas-txt"></span></div></div>';
   var cdHtml = function (lbl) { return '<div class="bk-cd" aria-live="off">' + (lbl ? '<span class="bk-cd-lbl">termina<br>em</span>' : '') +
     '<div class="bk-n"><i class="bk-d">0</i><em>dias</em></div><span class="bk-sep">:</span>' +
     '<div class="bk-n"><i class="bk-h">00</i><em>horas</em></div><span class="bk-sep">:</span>' +
@@ -80,7 +95,7 @@
   var bar = document.createElement('div');
   bar.className = 'bk-bar';
   bar.setAttribute('role', 'region');
-  bar.setAttribute('aria-label', 'Semana da Black');
+  bar.setAttribute('aria-label', prorrogado ? 'Prazo prorrogado' : 'Preço de Black');
   bar.innerHTML = '<div class="bk-in">' + titHtml + cdHtml(true) + '</div>';
   document.body.insertBefore(bar, document.body.firstChild);
   }
@@ -88,7 +103,7 @@
   function tick() {
     var w = semana();
     var set = function (c, v, html) { document.querySelectorAll('.' + c).forEach(function (e) { if (html) e.innerHTML = v; else e.textContent = v; }); };
-    set('bk-datas-txt', dm(w.ini) + ' <i>até</i> ' + dm(w.fimDia), true);
+    set('bk-datas-txt', (prorrogado ? 'pra você, ' : '') + '<i>até</i> ' + dm(w.fimDia) + ' 23h59', true);
     var r = Math.max(0, w.fimMs - Date.now()), t = Math.floor(r / 1000);
     var p = function (n) { return ('0' + n).slice(-2); };
     set('bk-d', Math.floor(t / 86400));
