@@ -1,7 +1,7 @@
 /* SEMANA DA BLACK — barra no topo + contador POR VISITANTE (11/11, pedido Bruno; antes: semana seg-dom que renovava pra todo mundo)
    1ª visita: preço de Black até o fim do dia seguinte (23h59 BRT). Volta dentro do prazo: o MESMO contador segue (não recomeça).
    Volta depois do prazo: "PRAZO PRORROGADO" até o fim do dia seguinte a esse acesso. Guardado no navegador (localStorage, por site).
-   Mede no beacon ab-ic: <pagina>|visitante|novo_pv, volta_pv, novo_ic, volta_ic, prorrogado.
+   Mede no beacon ab-ic: vis~<pagina>~novo|base|pageview/ic, vis~<pagina>~volta|..., vis~<pagina>~prorrogado|...
    + selo "Preço de Black" com brilho e "de R$ 97 por R$ 67" no bloco de preço + cupom no link do checkout.
    Um arquivo só, igual em todas as páginas. Desligar = remover a tag <script src="black.js">. */
 (function () {
@@ -77,9 +77,10 @@
     var h = location.hostname, p = location.pathname, m = p.match(/(canguru|coala|coruja|leao|suricato)/);
     var PAG = /dbpocket/.test(h) ? 'pocket' : /guiapega|guiadapega|tdapocket/.test(h) ? 'guia' : /perfis/.test(h) ? (m ? 'quiz-' + m[1] : 'quiz') : /mathias/.test(h) ? 'mathias' : (h.split('.')[0] || 'pagina');
     var U = 'https://n8n-n8n.xktssy.easypanel.host/webhook/ab-ic', tipo = visitas > 1 ? 'volta' : 'novo', feito = {};
-    function hit(ev) { if (feito[ev]) return; feito[ev] = 1; try { navigator.sendBeacon(U, new Blob([JSON.stringify({ pagina: PAG, versao: 'visitante', evento: ev })], { type: 'text/plain' })); } catch (e) {} }
-    hit(tipo + '_pv'); if (acabouDeProrrogar) hit('prorrogado');
-    document.addEventListener('click', function (e) { var a = e.target.closest && e.target.closest('a[href*="payfast"], .btn-comprar'); if (a) hit(tipo + '_ic'); }, true);
+    // o contador do n8n só aceita versao base/vN e evento pageview/ic: a marca vai no nome da página -> "vis~quiz-coala~volta|base|ic"
+    function hit(grupo, ev) { var k = grupo + ev; if (feito[k]) return; feito[k] = 1; try { navigator.sendBeacon(U, new Blob([JSON.stringify({ pagina: 'vis~' + PAG + '~' + grupo, versao: 'base', evento: ev })], { type: 'text/plain' })); } catch (e) {} }
+    hit(tipo, 'pageview'); if (acabouDeProrrogar) hit('prorrogado', 'pageview');
+    document.addEventListener('click', function (e) { var a = e.target.closest && e.target.closest('a[href*="payfast"], .btn-comprar'); if (a) { hit(tipo, 'ic'); if (prorrogado) hit('prorrogado', 'ic'); } }, true);
   })();
   var MES = ['jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez'];
   function dm(d) { return d.getUTCDate() + ' ' + MES[d.getUTCMonth()]; }
