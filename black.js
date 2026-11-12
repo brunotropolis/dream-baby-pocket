@@ -1,7 +1,6 @@
-/* SEMANA DA BLACK — barra no topo + contador POR VISITANTE (11/11, pedido Bruno; antes: semana seg-dom que renovava pra todo mundo)
-   1ª visita: preço de Black até o fim do dia seguinte (23h59 BRT). Volta dentro do prazo: o MESMO contador segue (não recomeça).
-   Volta depois do prazo: "PRAZO PRORROGADO" até o fim do dia seguinte a esse acesso. Guardado no navegador (localStorage, por site).
-   Mede no beacon ab-ic: vis~<pagina>~novo|base|pageview/ic, vis~<pagina>~volta|..., vis~<pagina>~prorrogado|...
+/* SEMANA DA BLACK — barra no topo + contador com PRAZO FIXO pra todo mundo (12/11: até dom 15/11 23h59 BRT;
+   histórico: até 10/11 semana seg-dom que renovava na segunda; 11-12/11 por visitante "até amanhã"/"prorrogado").
+   Mede no beacon ab-ic: vis~<pagina>~novo|base|pageview/ic e vis~<pagina>~volta|...
    + selo "Preço de Black" com brilho e "de R$ 97 por R$ 67" no bloco de preço + cupom no link do checkout.
    Um arquivo só, igual em todas as páginas. Desligar = remover a tag <script src="black.js">. */
 (function () {
@@ -61,16 +60,17 @@
     '@media (prefers-reduced-motion:reduce){.bk-selo,.bk-selo:after,.bk-bar:after{animation:none}}';
   var st = document.createElement('style'); st.textContent = css; document.head.appendChild(st);
 
-  // prazo por visitante (BRT = UTC-3, sem horário de verão)
-  function fimDeAmanha() { var b = new Date(Date.now() - 3 * 3600e3); return Date.UTC(b.getUTCFullYear(), b.getUTCMonth(), b.getUTCDate() + 2) + 3 * 3600e3 - 1000; }
+  // 12/11 (Bruno): prazo FIXO e igual pra todo mundo, sem renovar no meio da semana: dom 15/11 23h59 BRT.
+  // (11/11 a 12/11 foi por visitante "até amanhã / prorrogado"; coincidiu com a pior ida pro checkout. Backup: gestor-trafego/backups/black.PRE-PRAZO-FIXO-20261112.js)
+  // Depois de 15/11 cai na regra antiga (próximo domingo 23h59) só pra página nunca mostrar prazo vencido; a próxima semana se decide antes.
+  var FIM_FIXO = Date.UTC(2026, 10, 16, 2, 59, 59); // 15/11 23:59:59 BRT
+  function proxDomingo() { var b = new Date(Date.now() - 3 * 3600e3), dw = b.getUTCDay(); return Date.UTC(b.getUTCFullYear(), b.getUTCMonth(), b.getUTCDate() + (dw === 0 ? 0 : 7 - dw), 23, 59, 59) + 3 * 3600e3; }
   var LS = { get: function (k) { try { return localStorage.getItem(k); } catch (e) { return null; } }, set: function (k, v) { try { localStorage.setItem(k, v); } catch (e) {} } };
-  var agora = Date.now(), prazo = +LS.get('bk_prazo') || 0, ultima = +LS.get('bk_ultima') || 0, visitas = +LS.get('bk_visitas') || 0;
-  var volta = visitas > 0 && agora - ultima > 30 * 60e3; // voltou numa sessão nova (30 min depois)
-  var prorrogado = LS.get('bk_prorrogado') === '1', acabouDeProrrogar = false;
-  if (!prazo) { prazo = fimDeAmanha(); prorrogado = false; }
-  else if (agora > prazo) { prazo = fimDeAmanha(); prorrogado = true; acabouDeProrrogar = true; }
+  var agora = Date.now(), ultima = +LS.get('bk_ultima') || 0, visitas = +LS.get('bk_visitas') || 0;
+  var prazo = agora <= FIM_FIXO ? FIM_FIXO : proxDomingo();
+  var prorrogado = false, acabouDeProrrogar = false;
   if (!visitas || agora - ultima > 30 * 60e3) visitas++;
-  LS.set('bk_prazo', String(prazo)); LS.set('bk_ultima', String(agora)); LS.set('bk_visitas', String(visitas)); LS.set('bk_prorrogado', prorrogado ? '1' : '0');
+  LS.set('bk_ultima', String(agora)); LS.set('bk_visitas', String(visitas));
   function semana() { var f = new Date(prazo - 3 * 3600e3); return { fimDia: f, fimMs: prazo }; }
   // medidor: quem volta x quem é novo (mesmo beacon do funil por seção)
   (function () {
