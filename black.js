@@ -1,6 +1,4 @@
-/* SEMANA DA BLACK — barra no topo + contador com PRAZO FIXO pra todo mundo (12/11: até dom 15/11 23h59 BRT;
-   histórico: até 10/11 semana seg-dom que renovava na segunda; 11-12/11 por visitante "até amanhã"/"prorrogado").
-   Mede no beacon ab-ic: vis~<pagina>~novo|base|pageview/ic e vis~<pagina>~volta|...
+/* SEMANA DA BLACK — barra no topo + contador da semana (seg 00h a dom 23h59 BRT, renova sozinho)
    + selo "Preço de Black" com brilho e "de R$ 97 por R$ 67" no bloco de preço + cupom no link do checkout.
    Um arquivo só, igual em todas as páginas. Desligar = remover a tag <script src="black.js">. */
 (function () {
@@ -60,33 +58,19 @@
     '@media (prefers-reduced-motion:reduce){.bk-selo,.bk-selo:after,.bk-bar:after{animation:none}}';
   var st = document.createElement('style'); st.textContent = css; document.head.appendChild(st);
 
-  // 12/11 (Bruno): prazo FIXO e igual pra todo mundo, sem renovar no meio da semana: dom 15/11 23h59 BRT.
-  // (11/11 a 12/11 foi por visitante "até amanhã / prorrogado"; coincidiu com a pior ida pro checkout. Backup: gestor-trafego/backups/black.PRE-PRAZO-FIXO-20261112.js)
-  // Depois de 15/11 cai na regra antiga (próximo domingo 23h59) só pra página nunca mostrar prazo vencido; a próxima semana se decide antes.
-  var FIM_FIXO = Date.UTC(2026, 10, 16, 2, 59, 59); // 15/11 23:59:59 BRT
-  function proxDomingo() { var b = new Date(Date.now() - 3 * 3600e3), dw = b.getUTCDay(); return Date.UTC(b.getUTCFullYear(), b.getUTCMonth(), b.getUTCDate() + (dw === 0 ? 0 : 7 - dw), 23, 59, 59) + 3 * 3600e3; }
-  var LS = { get: function (k) { try { return localStorage.getItem(k); } catch (e) { return null; } }, set: function (k, v) { try { localStorage.setItem(k, v); } catch (e) {} } };
-  var agora = Date.now(), ultima = +LS.get('bk_ultima') || 0, visitas = +LS.get('bk_visitas') || 0;
-  var prazo = agora <= FIM_FIXO ? FIM_FIXO : proxDomingo();
-  var prorrogado = false, acabouDeProrrogar = false;
-  if (!visitas || agora - ultima > 30 * 60e3) visitas++;
-  LS.set('bk_ultima', String(agora)); LS.set('bk_visitas', String(visitas));
-  function semana() { var f = new Date(prazo - 3 * 3600e3); return { fimDia: f, fimMs: prazo }; }
-  // medidor: quem volta x quem é novo (mesmo beacon do funil por seção)
-  (function () {
-    var h = location.hostname, p = location.pathname, m = p.match(/(canguru|coala|coruja|leao|suricato)/);
-    var PAG = /dbpocket/.test(h) ? 'pocket' : /guiapega|guiadapega|tdapocket/.test(h) ? 'guia' : /perfis/.test(h) ? (m ? 'quiz-' + m[1] : 'quiz') : /mathias/.test(h) ? 'mathias' : (h.split('.')[0] || 'pagina');
-    var U = 'https://n8n-n8n.xktssy.easypanel.host/webhook/ab-ic', tipo = visitas > 1 ? 'volta' : 'novo', feito = {};
-    // o contador do n8n só aceita versao base/vN e evento pageview/ic: a marca vai no nome da página -> "vis~quiz-coala~volta|base|ic"
-    function hit(grupo, ev) { var k = grupo + ev; if (feito[k]) return; feito[k] = 1; try { navigator.sendBeacon(U, new Blob([JSON.stringify({ pagina: 'vis~' + PAG + '~' + grupo, versao: 'base', evento: ev })], { type: 'text/plain' })); } catch (e) {} }
-    hit(tipo, 'pageview'); if (acabouDeProrrogar) hit('prorrogado', 'pageview');
-    document.addEventListener('click', function (e) { var a = e.target.closest && e.target.closest('a[href*="payfast"], .btn-comprar'); if (a) { hit(tipo, 'ic'); if (prorrogado) hit('prorrogado', 'ic'); } }, true);
-  })();
+  // semana em BRT (UTC-3, sem horário de verão): segunda 00:00 até domingo 23:59:59
+  function semana() {
+    var agoraBrt = new Date(Date.now() - 3 * 3600e3);
+    var dow = (agoraBrt.getUTCDay() + 6) % 7; // 0 = segunda
+    var ini = Date.UTC(agoraBrt.getUTCFullYear(), agoraBrt.getUTCMonth(), agoraBrt.getUTCDate() - dow);
+    var fim = ini + 7 * 864e5; // segunda seguinte 00:00 BRT
+    return { ini: new Date(ini), fimDia: new Date(fim - 864e5), fimMs: fim + 3 * 3600e3 };
+  }
   var MES = ['jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez'];
   function dm(d) { return d.getUTCDate() + ' ' + MES[d.getUTCMonth()]; }
 
   var cal = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path fill="currentColor" d="M7 2a1 1 0 0 1 1 1v1h8V3a1 1 0 1 1 2 0v1h1a3 3 0 0 1 3 3v2H2V7a3 3 0 0 1 3-3h1V3a1 1 0 0 1 1-1zM2 11h20v8a3 3 0 0 1-3 3H5a3 3 0 0 1-3-3v-8z"/></svg>';
-  var titHtml = '<div class="bk-tit"><div class="bk-nome">' + (prorrogado ? 'PRAZO <b>PRORROGADO</b>' : 'PREÇO DE <b>BLACK</b>') + '</div><div class="bk-datas">' + cal + '<span class="bk-datas-txt"></span></div></div>';
+  var titHtml = '<div class="bk-tit"><div class="bk-nome">SEMANA DA <b>BLACK</b></div><div class="bk-datas">' + cal + '<span class="bk-datas-txt"></span></div></div>';
   var cdHtml = function (lbl) { return '<div class="bk-cd" aria-live="off">' + (lbl ? '<span class="bk-cd-lbl">termina<br>em</span>' : '') +
     '<div class="bk-n"><i class="bk-d">0</i><em>dias</em></div><span class="bk-sep">:</span>' +
     '<div class="bk-n"><i class="bk-h">00</i><em>horas</em></div><span class="bk-sep">:</span>' +
@@ -96,7 +80,7 @@
   var bar = document.createElement('div');
   bar.className = 'bk-bar';
   bar.setAttribute('role', 'region');
-  bar.setAttribute('aria-label', prorrogado ? 'Prazo prorrogado' : 'Preço de Black');
+  bar.setAttribute('aria-label', 'Semana da Black');
   bar.innerHTML = '<div class="bk-in">' + titHtml + cdHtml(true) + '</div>';
   document.body.insertBefore(bar, document.body.firstChild);
   }
@@ -104,7 +88,7 @@
   function tick() {
     var w = semana();
     var set = function (c, v, html) { document.querySelectorAll('.' + c).forEach(function (e) { if (html) e.innerHTML = v; else e.textContent = v; }); };
-    set('bk-datas-txt', (prorrogado ? 'pra você, ' : '') + '<i>até</i> ' + dm(w.fimDia) + ' 23h59', true);
+    set('bk-datas-txt', dm(w.ini) + ' <i>até</i> ' + dm(w.fimDia), true);
     var r = Math.max(0, w.fimMs - Date.now()), t = Math.floor(r / 1000);
     var p = function (n) { return ('0' + n).slice(-2); };
     set('bk-d', Math.floor(t / 86400));
