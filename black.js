@@ -35,6 +35,7 @@
     '.bk-nome{font-size:12.5px;letter-spacing:.12em}.bk-datas{font-size:10px;padding:3px 8px 3px 6px}' +
     '.bk-cd-lbl{display:none}.bk-n i{min-width:31px;font-size:15.5px;padding:5px 3px 4px}.bk-n em{font-size:8.5px}.bk-sep{font-size:13px;line-height:26px}}' +
     '@media(max-width:350px){.bk-sep{display:none}}' +
+    '.bk-ult .bk-nd,.bk-ult .bk-sd{display:none}' + /* sáb/dom: sem a casa de dias (é sempre 0) */
     /* preço */
     '.bk-preco{display:flex;flex-direction:column;align-items:center;gap:12px;margin-bottom:10px}.price-card .bk-preco{margin-bottom:14px}' +
     '.bk-selo{position:relative;overflow:hidden;display:inline-flex;align-items:center;gap:8px;background:#0d0d0d;color:' + OURO + ';' +
@@ -77,7 +78,7 @@
   var cal = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path fill="currentColor" d="M7 2a1 1 0 0 1 1 1v1h8V3a1 1 0 1 1 2 0v1h1a3 3 0 0 1 3 3v2H2V7a3 3 0 0 1 3-3h1V3a1 1 0 0 1 1-1zM2 11h20v8a3 3 0 0 1-3 3H5a3 3 0 0 1-3-3v-8z"/></svg>';
   var titHtml = '<div class="bk-tit"><div class="bk-nome">SEMANA DA <b>BLACK</b></div><div class="bk-datas">' + cal + '<span class="bk-datas-txt"></span></div></div>';
   var cdHtml = function (lbl) { return '<div class="bk-cd" aria-live="off">' + (lbl ? '<span class="bk-cd-lbl">termina<br>em</span>' : '') +
-    '<div class="bk-n"><i class="bk-d">0</i><em>dias</em></div><span class="bk-sep">:</span>' +
+    '<div class="bk-n bk-nd"><i class="bk-d">0</i><em>dias</em></div><span class="bk-sep bk-sd">:</span>' +
     '<div class="bk-n"><i class="bk-h">00</i><em>horas</em></div><span class="bk-sep">:</span>' +
     '<div class="bk-n"><i class="bk-m">00</i><em>min</em></div><span class="bk-sep">:</span>' +
     '<div class="bk-n"><i class="bk-s">00</i><em>seg</em></div></div>'; };
@@ -93,6 +94,7 @@
   function tick() {
     var w = semana();
     var set = function (c, v, html) { document.querySelectorAll('.' + c).forEach(function (e) { if (html) e.innerHTML = v; else e.textContent = v; }); };
+    document.documentElement.classList.toggle('bk-ult', w.ultimo);
     if (w.ultimo) {
       set('bk-nome', 'ÚLTIMO DIA DA <b>BLACK</b>', true);
       set('bk-datas-txt', 'prorrogado <i>até</i> ' + (w.dow === 5 ? 'sáb' : 'dom') + ' ' + dm(w.fimDia), true);
