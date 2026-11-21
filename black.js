@@ -1,4 +1,4 @@
-/* SEMANA DA BLACK, barra no topo + contador (seg a qui: semana seg até sex, conta até sex 23h59 BRT; sex, sáb e dom: "último dia", datas seg até sex/sáb/dom, conta até meia-noite do dia; renova sozinho)
+/* SEMANA DA BLACK, barra no topo + contador (seg a qui: semana seg até sex, conta até sex 23h59 BRT; sex, sáb e dom: datas seg até sex/sáb/dom, conta até meia-noite do dia; renova sozinho)
    + selo "Preço de Black" com brilho e "de R$ 97 por R$ 67" no bloco de preço + cupom no link do checkout.
    Um arquivo só, igual em todas as páginas. Desligar = remover a tag <script src="black.js">. */
 (function () {
@@ -96,7 +96,7 @@
     var set = function (c, v, html) { document.querySelectorAll('.' + c).forEach(function (e) { if (html) e.innerHTML = v; else e.textContent = v; }); };
     document.documentElement.classList.toggle('bk-ult', w.ultimo);
     if (w.ultimo) {
-      set('bk-nome', 'ÚLTIMO DIA DA <b>BLACK</b>', true);
+      set('bk-nome', 'SEMANA DA <b>BLACK</b>', true);
       set('bk-datas-txt', dm(w.ini) + ' <i>até</i> ' + dm(w.fimDia), true);
     } else {
       set('bk-nome', 'SEMANA DA <b>BLACK</b>', true);
