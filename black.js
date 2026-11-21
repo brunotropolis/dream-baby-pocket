@@ -1,4 +1,4 @@
-/* SEMANA DA BLACK, barra no topo + contador (seg 00h a sex 23h59 BRT; sáb e dom = "último dia" prorrogado até meia-noite; renova sozinho)
+/* SEMANA DA BLACK, barra no topo + contador (seg a qui: semana seg até sex, conta até sex 23h59 BRT; sex, sáb e dom: "último dia", datas seg até sex/sáb/dom, conta até meia-noite do dia; renova sozinho)
    + selo "Preço de Black" com brilho e "de R$ 97 por R$ 67" no bloco de preço + cupom no link do checkout.
    Um arquivo só, igual em todas as páginas. Desligar = remover a tag <script src="black.js">. */
 (function () {
@@ -59,7 +59,7 @@
     '@media (prefers-reduced-motion:reduce){.bk-selo,.bk-selo:after,.bk-bar:after{animation:none}}';
   var st = document.createElement('style'); st.textContent = css; document.head.appendChild(st);
 
-  // TESTE 19/11 (Bruno): semana seg 00h a sex 23h59 BRT; sáb e dom viram "último dia" (prorrogado), cada um até meia-noite.
+  // 21/11 (Bruno): seg a qui igual antes; sex, sáb e dom = "último dia" (seg até sex/sáb/dom), cada um até meia-noite.
   // Simular hora: ?bk_t=2026-11-20T23:59:00-03:00 na URL.
   var OFF = 0; try { var q = new URLSearchParams(location.search).get('bk_t'); if (q && !isNaN(Date.parse(q))) OFF = Date.parse(q) - Date.now(); } catch (e) {}
   function agora() { return Date.now() + OFF; }
@@ -68,7 +68,7 @@
     var dow = (agoraBrt.getUTCDay() + 6) % 7; // 0 = segunda ... 5 = sábado, 6 = domingo
     var hoje = Date.UTC(agoraBrt.getUTCFullYear(), agoraBrt.getUTCMonth(), agoraBrt.getUTCDate());
     var ini = hoje - dow * 864e5;
-    if (dow >= 5) return { ultimo: true, dow: dow, ini: new Date(ini), fimDia: new Date(hoje), fimMs: hoje + 864e5 + 3 * 3600e3 };
+    if (dow >= 4) return { ultimo: true, dow: dow, ini: new Date(ini), fimDia: new Date(hoje), fimMs: hoje + 864e5 + 3 * 3600e3 };
     var fim = ini + 5 * 864e5; // sábado 00:00 BRT = sexta meia-noite
     return { ultimo: false, ini: new Date(ini), fimDia: new Date(fim - 864e5), fimMs: fim + 3 * 3600e3 };
   }
@@ -97,7 +97,7 @@
     document.documentElement.classList.toggle('bk-ult', w.ultimo);
     if (w.ultimo) {
       set('bk-nome', 'ÚLTIMO DIA DA <b>BLACK</b>', true);
-      set('bk-datas-txt', 'prorrogado <i>até</i> ' + (w.dow === 5 ? 'sáb' : 'dom') + ' ' + dm(w.fimDia), true);
+      set('bk-datas-txt', dm(w.ini) + ' <i>até</i> ' + dm(w.fimDia), true);
     } else {
       set('bk-nome', 'SEMANA DA <b>BLACK</b>', true);
       set('bk-datas-txt', dm(w.ini) + ' <i>até</i> ' + dm(w.fimDia), true);
